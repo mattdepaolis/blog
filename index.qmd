@@ -1,6 +1,6 @@
 ---
 title: "{{< fa newspaper >}} Articles"
-description: "Technical articles about large language models, and convex optimization."
+description: "Technical articles about large language models, RAG systems, and agentic workflows."
 listing:
   contents: posts
   sort: "date desc"
