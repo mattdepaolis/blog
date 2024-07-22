@@ -6,7 +6,7 @@
   </url>
   <url>
     <loc>https://mattdepaolis.github.io/blog/about.html</loc>
-    <lastmod>2024-07-22T12:14:57.104Z</lastmod>
+    <lastmod>2024-07-22T12:46:19.607Z</lastmod>
   </url>
   <url>
     <loc>https://mattdepaolis.github.io/blog/posts/Article_Improve_ChatGPT_with_Knowledge_Graphs.html</loc>
@@ -82,6 +82,30 @@
   </url>
   <url>
     <loc>https://mattdepaolis.github.io/blog/posts/2022-02-13-Q_learning.html</loc>
-    <lastmod>2024-07-22T11:17:12.620Z</lastmod>
+    <lastmod>2024-07-21T20:25:52.686Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mattdepaolis.github.io/blog/posts/2022-03-09-Graph_Attention_Network.html</loc>
+    <lastmod>2024-07-21T20:25:52.694Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mattdepaolis.github.io/blog/posts/2022-03-02-Linear_Programming.html</loc>
+    <lastmod>2024-07-21T20:25:52.686Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mattdepaolis.github.io/blog/posts/2023-05-21-Nonlinear_optimization.html</loc>
+    <lastmod>2024-07-21T20:25:52.712Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mattdepaolis.github.io/blog/posts/2022-04-25-Graph_Isomorphism_Network.html</loc>
+    <lastmod>2024-07-21T20:25:52.703Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mattdepaolis.github.io/blog/posts/2022-03-05-Integer_Programming.html</loc>
+    <lastmod>2024-07-21T20:25:52.686Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mattdepaolis.github.io/blog/posts/2022-04-06-GraphSAGE.html</loc>
+    <lastmod>2024-07-21T20:25:52.696Z</lastmod>
   </url>
 </urlset>

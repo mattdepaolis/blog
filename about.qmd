@@ -16,7 +16,7 @@ about:
       href: https://huggingface.co/llmat
 ---
 
-Matthias De Paolis is a  AI Engineer and Data Scientist at [Yarowa AG](https://www.yarowa.com/), serving as the lead of the AI Tribe. He holds a Master in Applied Information and Data Science from the university of applied science in Lucerne.
+Matthias De Paolis is a Machine Learning Engineer and Data Scientist at [Yarowa AG](https://www.yarowa.com/), serving as the lead AI Engineer. He holds a Master in Applied Information and Data Science from the university of applied science in Lucerne.
 
 Connect with him on [LinkedIn](https://www.linkedin.com/in/matthiasdepaolis/) @matthiasdepaolis.
 
