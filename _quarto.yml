@@ -15,10 +15,10 @@ website:
         file: about.qmd
     right:
       - icon: linkedin
-        href: https://linkedin.com/in/mattdepaolis
+        href: https://www.linkedin.com/in/matthiasdepaolis/
       - icon: github
         href: https://github.com/mattdepaolis
-      - text: "![](https://mattdepaolis.github.io/blog/images/hf-icon.svg)"
+      - text: "![](images/hf-icon.svg)"
         href: https://huggingface.co/llmat
     pinned: false
   google-analytics: "G-4DWYJM47PC"
