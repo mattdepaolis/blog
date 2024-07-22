@@ -1,0 +1,28 @@
+---
+title: "Matthias De Paolis"
+title-block-style: none
+image: images/profilepicture.jpg
+sidebar: false
+about:
+  template: trestles
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://linkedin.com/in/matthiasdepaolis
+    - icon: github
+      text: Github
+      href: https://github.com/mattdepaolis
+    - text: "{{< iconify logos:hugging-face-icon >}} Hugging Face"
+      href: https://huggingface.co/llmat
+---
+
+Matthias De Paolis is a  AI Engineer and Data Scientist at [Yarowa AG](https://www.yarowa.com/), serving as the head of post-training. He holds a Master in Applied Information and Data Science from the university of applied science in Lucerne.
+
+Connect with him on [LinkedIn](https://www.linkedin.com/in/matthiasdepaolis/) @matthiasdepaolis.
+
+<hr>
+
+*Credits:*
+
+* *Emojis used in figures are designed by [OpenMoji](https://openmoji.org/), the open-source emoji and icon project. License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/#).*
+* *Vector icons are provided by Streamline ([https://streamlinehq.com](https://streamlinehq.com)). License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/#).*

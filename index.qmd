@@ -1,0 +1,16 @@
+---
+title: "{{< fa newspaper >}} Articles"
+description: "Technical articles about large language models, and convex optimization."
+listing:
+  contents: posts
+  sort: "date desc"
+  type: default
+  image-align: left
+  feed: true
+  sort-ui: false
+  filter-ui: false
+  fields: [image, title, subtitle, colab, date, reading-time, categories]
+page-layout: full
+sidebar: false
+title-block-banner: true
+---
