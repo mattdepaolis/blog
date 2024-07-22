@@ -4,7 +4,7 @@ project:
 
 website:
   title: "Matthias De Paolis"
-  description: "Illustrated tutorials about large language models, graph neural networks, and convex optimization using Python."
+  description: "Illustrated tutorials about large language models, retrieval augmented generation, and agentic workflow using Python."
   site-url: https://mattdepaolis.github.io/blog
   navbar:
     logo: "/images/logo.png"
