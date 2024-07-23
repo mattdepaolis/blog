@@ -37,7 +37,7 @@ website:
         - section: "🗣️ **Large Language Models**"
           contents:
             - text: "1. Fine-tune TinyLlama with SFT"
-              href: posts/Fine_Tune_Your_Own_Llama_2_Model_in_a_Colab_Notebook.html
+              href: posts/Fine_Tune_TinyLlama_with_SFT.html
         - text: "---"
         - section: "⚡ **RAG Systems**"
         - text: "---"
