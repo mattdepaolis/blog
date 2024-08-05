@@ -275,7 +275,7 @@
     "href": "posts/Fine-Tune_Mistral_7B_with_ORPO.html",
     "title": "Fine-Tune Mistral v0.3 with ORPO and Unsloth",
     "section": "",
-    "text": "ORPO is an innovative fine-tuning method that merges traditional supervised fine-tuning with preference alignment into a unified process. This approach decreases the computational resources and time needed for training. Additionally, empirical evidence shows that ORPO surpasses other alignment techniques across different model sizes and benchmarks.\nIn this article, we will fine-tune the newest Mistral 7B model using ORPO and the TRL library. The code is accessible on Google Colab and in the LLM Tutorial on GitHub.",
+    "text": "ORPO is an advanced fine-tuning method that integrates traditional supervised fine-tuning with preference alignment into a single, streamlined process. This technique significantly reduces the computational resources and time required for training. Moreover, empirical evidence demonstrates that ORPO outperforms other alignment methods across various model sizes and benchmarks. In this article, we will fine-tune the latest Mistral 7B model using ORPO and the TRL library. The code for this process can be found on Google Colab and in the LLM Tutorial on GitHub.",
     "crumbs": [
       "{{< fa chalkboard >}} LLM Tutorials",
       "🗣️ **Large Language Models**",
@@ -395,7 +395,19 @@
     "href": "posts/Fine-Tune_Mistral_7B_with_ORPO.html#merging-adapters-and-saving-the-model-to-hugging-face-hub",
     "title": "Fine-Tune Mistral v0.3 with ORPO and Unsloth",
     "section": "Merging Adapters and Saving the Model to Hugging Face Hub",
-    "text": "Merging Adapters and Saving the Model to Hugging Face Hub\nIn the subsequent steps, we merge the adapters with the original model using 16-bit precision to enhance quality. Initially, we save it locally in the “model” directory before uploading it to the Hugging Face Hub. The trained model is available at llmat/Mistral-v0.3-7B-ORPO.\n\nmodel.save_pretrained_merged(\"model\", tokenizer, save_method=\"merged_16bit\")\nmodel.push_to_hub_merged(\"llmat/Mistral-v0.3-7B-ORPO\", tokenizer, save_method=\"merged_16bit\")",
+    "text": "Merging Adapters and Saving the Model to Hugging Face Hub\nAs a last step, we merge the adapters with the original model using 16-bit precision to enhance quality. Initially, we save it locally in the “model” directory before uploading it to the Hugging Face Hub. The trained model is available at llmat/Mistral-v0.3-7B-ORPO.\n\nmodel.save_pretrained_merged(\"model\", tokenizer, save_method=\"merged_16bit\")\nmodel.push_to_hub_merged(\"llmat/Mistral-v0.3-7B-ORPO\", tokenizer, save_method=\"merged_16bit\")",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "🗣️ **Large Language Models**",
+      "1. Fine-Tune Mistral with ORPO"
+    ]
+  },
+  {
+    "objectID": "posts/Fine-Tune_Mistral_7B_with_ORPO.html#conclusion",
+    "href": "posts/Fine-Tune_Mistral_7B_with_ORPO.html#conclusion",
+    "title": "Fine-Tune Mistral v0.3 with ORPO and Unsloth",
+    "section": "Conclusion",
+    "text": "Conclusion\nThis article presented a thorough overview of ORPO fine-tuning and its practical application to a Mistral v0.3 7B model. Utilizing QLoRA’s efficient memory management, we successfully fine-tuned a 7B LLM on a high-quality dataset with minimal GPU resources.\nI hope you found this guide helpful. If you liked this article, follow me on Hugging Face @llmat. Best of luck with your model fine-tuning!",
     "crumbs": [
       "{{< fa chalkboard >}} LLM Tutorials",
       "🗣️ **Large Language Models**",
