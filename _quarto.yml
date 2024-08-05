@@ -37,7 +37,7 @@ website:
         - section: "🗣️ **Large Language Models**"
           contents:
             - text: "1. Fine-Tune Mistral with ORPO"
-              href: posts/ORPO_Mistral_unsloth-publish.html
+              href: posts/Fine-Tune_Mistral_7B_with_ORPO.html
         - text: "---"
         - section: "⚡ **RAG Systems**"
         - text: "---"
