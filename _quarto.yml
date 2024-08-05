@@ -36,10 +36,8 @@ website:
       contents:
         - section: "🗣️ **Large Language Models**"
           contents:
-            - text: "1. Fine-tune TinyLlama with SFT"
-              href: posts/Fine_Tune_TinyLlama_with_SFT.html
-            - text: "2. Create Custom DPO Dataset"
-              href: posts/2022-03-02-Linear_Programming.html
+            - text: "1. Fine-Tune Mistral with ORPO"
+              href: posts/ORPO_Mistral_unsloth-publish.html
         - text: "---"
         - section: "⚡ **RAG Systems**"
         - text: "---"
