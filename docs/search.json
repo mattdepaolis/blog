@@ -407,7 +407,7 @@
     "href": "posts/Fine-Tune_Mistral_7B_with_ORPO.html#conclusion",
     "title": "Fine-Tune Mistral v0.3 with ORPO and Unsloth",
     "section": "Conclusion",
-    "text": "Conclusion\nThis article presented a thorough overview of ORPO fine-tuning and its practical application to a Mistral v0.3 7B model. Utilizing QLoRA’s efficient memory management, we successfully fine-tuned a 7B LLM on a high-quality dataset with minimal GPU resources.\nI hope you found this guide helpful. If you liked this article, follow me on Hugging Face @llmat. Best of luck with your model fine-tuning!\n## References\nJ. Hong, N. Lee, and J. Thorne, (2024), ORPO: Monolithic Preference Optimization without Reference Model  unsloth.ai, Unsloth Documentation",
+    "text": "Conclusion\nThis article presented a thorough overview of ORPO fine-tuning and its practical application to a Mistral v0.3 7B model. Utilizing QLoRA’s efficient memory management, we successfully fine-tuned a 7B LLM on a high-quality dataset with minimal GPU resources.\nI hope you found this guide helpful. If you liked this article, follow me on Hugging Face @llmat. Best of luck with your model fine-tuning!",
     "crumbs": [
       "{{< fa chalkboard >}} LLM Tutorials",
       "🗣️ **Large Language Models**",
