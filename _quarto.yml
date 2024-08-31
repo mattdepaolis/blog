@@ -34,10 +34,15 @@ website:
       collapse-level: 2
       align: left
       contents:
-        - section: "🗣️ **Large Language Models**"
+        - section: "🗣️ **LLM Post-Training**"
           contents:
-            - text: "1. Fine-Tune Mistral with ORPO"
+            - text: "From Fine-Tuning to Deployment"
+              href: posts/From_Fine-Tuning_to_Deployment.html
+            - text: "Fine-Tune Mistral with ORPO"
               href: posts/Fine-Tune_Mistral_7B_with_ORPO.html
+              
+        - text: "---"
+        - section: "🗣️ **LLM Pre-Training**"
         - text: "---"
         - section: "⚡ **RAG Systems**"
         - text: "---"

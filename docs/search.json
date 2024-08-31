@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": " Articles",
     "section": "",
-    "text": "Fine-Tune Mistral v0.3 with ORPO and Unsloth\n\n\nLow-Rank Adapter Model Fine-tuning\n\n\n\nLarge Language Models\n\n\n\n\n\n\nJul 30, 2024\n\n\n11 min\n\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "From Fine-Tuning to Deployment\n\n\nHarnessing Custom LLMs with Ollama and Quantization\n\n\n\nPost-Training LLM\n\n\n\n\n\n\nAug 31, 2024\n\n\n11 min\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFine-Tune Mistral v0.3 with ORPO and Unsloth\n\n\nLow-Rank Adapter Model Fine-tuning\n\n\n\nPost-Training LLM\n\n\n\n\n\n\nJul 30, 2024\n\n\n11 min\n\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -278,8 +278,8 @@
     "text": "The field of artificial intelligence and machine learning is marked by constant innovation, with new tools and methodologies emerging to expand the horizons of what these technologies can achieve. Recently, significant upgrades were introduced in popular AI model series, enhancing their capabilities and setting new benchmarks in AI development.\nHowever, to fully leverage the potential of these advanced models, it’s essential to employ sophisticated fine-tuning techniques like ORPO (Odds Ratio Preference Optimization) and Unsloth. ORPO simplifies the alignment process by integrating preference optimization directly into the training phase, eliminating the need for a separate alignment step. Unsloth, on the other hand, offers groundbreaking advancements in training efficiency, significantly speeding up the process while reducing memory consumption without compromising accuracy.\nIn this article, we will explore how to fine-tune Mistral v0.3 using ORPO and Unsloth, demonstrating how these techniques can enhance model performance and efficiency. By understanding and applying these methods, you can unlock new levels of capability and efficiency in your AI projects. The code for this process can be found on Google Colab and in the LLM Tutorial on GitHub.",
     "crumbs": [
       "{{< fa chalkboard >}} LLM Tutorials",
-      "🗣️ **Large Language Models**",
-      "1. Fine-Tune Mistral with ORPO"
+      "🗣️ **LLM Post-Training**",
+      "Fine-Tune Mistral with ORPO"
     ]
   },
   {
@@ -290,8 +290,8 @@
     "text": "ORPO\nInstruction tuning and preference alignment are crucial for customizing Large Language Models (LLMs) for specific tasks. This typically involves a multi-step process: first, Supervised Fine-Tuning (SFT) on instructions to tailor the model to the desired domain, and second, applying preference alignment techniques such as Reinforcement Learning with Human Feedback (RLHF) or Direct Preference Optimization (DPO) to enhance the probability of producing preferred responses over less desirable ones. Researchers have found that although SFT adjusts the model to the target domain, it also raises the chances of producing both unwanted and desired answers. Therefore, the preference alignment stage is essential to enlarge the disparity between the probabilities of accepted and rejected outputs.\n\n\n\nHong and Lee (2024) introduced ORPO (Odds Ratio Preference Optimization), a groundbreaking method that aligns the language model without a reference model in a single-step manner by assigning a weak penalty to the rejected responses and a strong adaptation signal to the chosen responses with a simple log odds ratio term appended to the negative log-likelihood loss.\n\n\n\nThis approach enhances the traditional language modeling objective by integrating the negative log-likelihood (NLL) loss with an odds ratio (OR) component. The OR loss imposes a slight penalty on disfavored responses while significantly rewarding favored ones, enabling the model to concurrently master the target task and align with human preferences. The objective function for ORPO is defined as follows:\n\\mathscr{L}{ORPO} = \\mathbb{E}{(x, y_{w}, y_l)}[\\mathscr{L}{SFT} + \\lambda \\cdot \\mathscr{L}{OR}]\nIn this formula, SFT represents the conventional supervised fine-tuning loss, OR denotes the odds ratio loss, and Lambda is a weighting factor that balances these two components. This integration ensures that the model adapts effectively to the desired domain while minimizing the generation of undesired outputs.",
     "crumbs": [
       "{{< fa chalkboard >}} LLM Tutorials",
-      "🗣️ **Large Language Models**",
-      "1. Fine-Tune Mistral with ORPO"
+      "🗣️ **LLM Post-Training**",
+      "Fine-Tune Mistral with ORPO"
     ]
   },
   {
@@ -314,8 +314,8 @@
     "text": "Prepare for LoRA fine-tuning\nBefore starting the LoRA (Low-Rank Adaptation) fine-tuning process, it’s essential to understand which parameters in your model are trainable and which are not. This helps in ensuring that only the desired parameters are updated during training, which is crucial for efficient and effective fine-tuning.\nTo achieve this, you can use the following function to print the number of trainable parameters in the model and list which parameters are trainable and which are not.\n\ndef print_trainable_parameters(model):\n    \"\"\"\n    Prints the number of trainable parameters in the model and lists which parameters\n    \"\"\"\n    trainable_params = 0\n    non_trainable_params = 0\n    all_params = 0\n\n    print(\"Trainable Parameters\")\n    for name, param in model.named_parameters():\n        all_params += param.numel()\n        if param.requires_grad:\n            trainable_params += param.numel()\n            print(f\" {name}\")\n        else:\n            non_trainable_params += param.numel()\n\n    print(\"\\nNon-Trainable Parameters:\")\n    for name, param in model.named_parameters():\n        if not param.requires_grad:\n            print(f\" {name}\")\n\n    print(\n        f\"\\nSummary:\\n Trainable params: {trainable_params}\\n Non-Trainable params: {non_trainable_params}\\n All Parameters: {all_params}\")\n\nPrint the trainable parameters to verify the setup.\n\nprint_trainable_parameters(model)",
     "crumbs": [
       "{{< fa chalkboard >}} LLM Tutorials",
-      "🗣️ **Large Language Models**",
-      "1. Fine-Tune Mistral with ORPO"
+      "🗣️ **LLM Post-Training**",
+      "Fine-Tune Mistral with ORPO"
     ]
   },
   {
@@ -326,8 +326,8 @@
     "text": "Setting Up LoRA Fine-Tuning\nTo prepare your model for LoRA (Low-Rank Adaptation) fine-tuning, you need to configure it properly. This involves setting up the LoRA configuration. Here’s a brief overview of the parameter settings:\n\nr: This parameter controls the rank of the low-rank adaptation matrices. It’s suggested to choose a value greater than 0, with common choices being 8, 16, 32, 64, or 128. The best setting depends on the specific use case and computational resources, but a good starting point is 8 or 16.\nlora_alpha: This parameter scales the magnitude of the LoRA update. A higher value can lead to more significant changes in the model’s behavior. In our example we are setting lora_alpha to 32.\ntarget_modules: This list specifies which modules in the model should be fine-tuned. The settings include key modules like \"q_proj\", \"k_proj\", \"v_proj\", \"o_proj\", \"gate_proj\", \"up_proj\", and \"down_proj\". If the task involves chat fine-tuning, it’s also beneficial to set \"lm_head\" (language model head) as trainable.\nuse_gradient_checkpointing: This parameter activates gradient checkpointing to conserve memory. It is managed by Unsloth, which offloads input and output embeddings to disk, thereby saving VRAM.\nrandom_state: This parameter sets the seed for random number generation, ensuring reproducibility. The best setting is any integer value; in the code, it’s set to 3407.\nuse_rslora: This parameter activates RSLoRA, which adjusts the scaling factor of LoRA adapters to be proportional to 1/√r instead of 1/r. This adjustment enhances the stability of learning, particularly for higher adapter ranks, and improves fine-tuning performance as the rank increases.\n\nThese settings provide a good starting point for fine-tuning a language model using PEFT. However, the optimal settings may vary depending on the specific task and dataset, so some experimentation may be necessary.\n\nmodel = FastLanguageModel.get_peft_model(\n    model,\n    r = 8, # Choose any number &gt; 0 ! Suggested 8, 16, 32, 64, 128\n    lora_alpha = 32,\n    target_modules=[\n        \"q_proj\",\n        \"k_proj\",\n        \"v_proj\",\n        \"o_proj\",\n        \"gate_proj\",\n        \"up_proj\",\n        \"down_proj\",\n        \"lm_head\", # Language model head - best to set this trainable if chat fine-tuning\n        \n    ],\n    \n    lora_dropout = 0, \n    bias = \"none\",    \n    use_gradient_checkpointing = \"unsloth\",\n    random_state = 3407,\n    use_rslora = True,\n    \n)",
     "crumbs": [
       "{{< fa chalkboard >}} LLM Tutorials",
-      "🗣️ **Large Language Models**",
-      "1. Fine-Tune Mistral with ORPO"
+      "🗣️ **LLM Post-Training**",
+      "Fine-Tune Mistral with ORPO"
     ]
   },
   {
@@ -350,8 +350,8 @@
     "text": "Loading and Preparing the Dataset for Fine-Tuning\nWhen working with large datasets, it’s essential to streamline the process of loading, splitting, and formatting the data to ensure efficient model training and testing. The following Python code demonstrates how to achieve this using the Hugging Face datasets library, along with a tokenizer for text processing.\n\n# Prepared with the help of code from: https://github.com/xfactlab/orpo/.\nimport json\n\n# Load the dataset\ndataset_name = 'llmat/dpo-orpo-mix-38k-balanced' # Ensure this is defined\n\nmax_num_samples = None # Set to None to use the full dataset\n#max_num_samples = 10000 # set to None to use the full dataset\n\nfrom datasets import load_dataset\n\ndef build_dataset(tokenizer, data_name, cache_dir=None, max_num_samples=10000, test_size_ratio=0.1):\n    # Determin the split specification based on max_num samples\n    split_spec = 'train' if max_num_samples is None else f'train[:{max_num_samples}]'\n\n    # Load the dataset\n    full_data = load_dataset(data_name, split=split_spec, cache_dir=cache_dir)\n\n    # Shuffle the dataset\n    if max_num_samples is not None:\n        full_data = full_data.shuffle(seed=42)\n    else:\n        full_data = full_data\n\n    # Determine the number of test samples\n    num_total_samples = len(full_data)\n    test_size = int(test_size_ratio * num_total_samples)\n\n    # Randomly split the data into training and test sets\n    dataset = full_data.train_test_split(test_size=test_size)\n\n    column_names = list(dataset['train'].features)\n\n    def apply_dpo_template(example):\n        # function adapted from https://kaitchup.substrack.com/p/fine-tune-a-better-go\n        if all(k in example.keys() for k in ('chosen', 'rejected')):\n            # For DPO, the inputs are triples of (prompt, chosen, rejected), where 'chosen'\n            # We therefore need to extract the N-1 turns to form the prompt\n            prompt_messages = example['chosen'][:-1]\n\n            # Now we extract the final turn to define chosen/rejected responses\n            chosen_messages = example['chosen'][-1:]\n            rejected_messages = example['rejected'][-1:]\n            example['text_chosen'] = tokenizer.apply_chat_template(chosen_messages, tokenize=False)\n            example['text_rejected'] = tokenizer.apply_chat_template(rejected_messages, tokenize=False)\n            example['text_prompt'] = tokenizer.apply_chat_template(prompt_messages, tokenize=False)\n        return example\n\n    dataset = dataset.map(apply_dpo_template, remove_columns=column_names,\n                desc='Formatting comparisons with prompt template',)\n\n    for split in ['train', 'test']:\n        dataset[split] = dataset[split].rename_columns(\n            {'text_prompt': 'prompt', 'text_chosen': 'chosen', 'text_rejected': 'rejected'}\n        )\n\n    return dataset['train'], dataset['test']\n\n# Assuming 'tokenizer' and 'dataset_name' are already defined\ntrain, test = build_dataset(tokenizer, dataset_name, cache_dir='./dataset', max_num_samples=max_num_samples)\n\nAfter preparing and formatting your dataset for fine-tuning, let’s inspect the data to ensure that it has been correctly processed. This step helps you verify that the prompt, chosen, rejected, and messages fields are properly formatted and contain the expected information.\n\nprint('Prompt:', train['prompt'][0])\nprint('\\n\\nChosen:', train['chosen'][0])\nprint('\\n\\nRejected:', train['rejected'][0])\nprint('\\n\\nMessages (incl. prompt):', train['messages'][0])",
     "crumbs": [
       "{{< fa chalkboard >}} LLM Tutorials",
-      "🗣️ **Large Language Models**",
-      "1. Fine-Tune Mistral with ORPO"
+      "🗣️ **LLM Post-Training**",
+      "Fine-Tune Mistral with ORPO"
     ]
   },
   {
@@ -362,8 +362,8 @@
     "text": "Setting Up and Running Training\nIn this tutorial, we will go through the process of setting up and running the training for your model. This includes configuring training parameters, creating a custom logging callback, and initiating the training process.\n\nSet Training Parameters\nDefine the training parameters such as the model name, number of epochs, gradient accumulation steps, batch size, and the directory to save the results.\n\nmodel_name = model_id.split('/')[-1]\n\nepochs=1\ngrad_accum=4\nbatch_size=8\nfine_tune_tag='ORPO'\nsave_dir = f'./results/{model_name}_{dataset_name}_{epochs}_epochs_{fine_tune_tag}'\nprint(save_dir)\n\n\n\nCreate a Custom Logging Callback\nImplement a custom callback to log training metrics to a file. This callback will write the training and evaluation loss to a log file and save the trainable parameters at checkpoint steps. Create an instance of the custom logging callback with the specified log file path.\n\nimport transformers\nimport os\nimport torch\n\n# Custom callback to log metrics\nclass LoggingCallback(transformers.TrainerCallback):\n    def __init__(self, log_file_path):\n        self.log_file_path = log_file_path\n\n    def on_log(self, args, state, control, model=None, logs=None, **kwargs):\n        with open(self.log_file_path, 'a') as f:\n            if 'loss' in logs:\n                f.write(f'Step: {state.global_step}, Training Loss: {logs[\"loss\"]}\\n')\n                if 'eval_loss' in logs:\n                    f.write(f'Step: {state.global_step}, Eval Loss: {logs[\"eval_loss\"]}\\n')\n                f.flush()  # Force flush the buffered data to file\n\n        # Check if the current step is a checkpoint step\n        if state.global_step % int(args.save_steps) == 0:\n            # Check if the last checkpoint path exists\n            if state.best_model_checkpoint:\n                checkpoint_dir = state.best_model_checkpoint\n            else:\n                # If not, construct the checkpoint directory path\n                checkpoint_dir = os.path.join(args.output_dir, f'checkpoint-{state.global_step}')\n\n            # Ensure the checkpoint directory exists\n            os.makedirs(checkpoint_dir, exist_ok=True)\n\n            # Save trainable params in the checkpoint directory\n            current_trainable_params = {n: p for n, p in model.named_parameters() if p.requires_grad}\n            current_trainable_params_state_dict = {n: p.data for n, p in current_trainable_params.items()}\n            file_path = os.path.join(checkpoint_dir, 'trainable_params.pt')\n            torch.save(current_trainable_params_state_dict, file_path)\n\n# Log file path\ncache_dir = './dataset'  # Assuming cache_dir is defined elsewhere in your code\nlog_file_path = os.path.join(cache_dir, 'training_logs.txt')\n\n# Create an instance of the custom callback\nlogging_callback = LoggingCallback(log_file_path)",
     "crumbs": [
       "{{< fa chalkboard >}} LLM Tutorials",
-      "🗣️ **Large Language Models**",
-      "1. Fine-Tune Mistral with ORPO"
+      "🗣️ **LLM Post-Training**",
+      "Fine-Tune Mistral with ORPO"
     ]
   },
   {
@@ -374,8 +374,8 @@
     "text": "Setting Up ORPO Training\nIn this section, we’ll walk through setting up and training a model using the ORPOTrainer from the trl library.\nI trained the model on the entire dataset (38k samples) using an RTX 4090 GPU (24 GB of VRAM). The training took 7 hours and 35 minutes. You can use smaller GPUs with less VRAM and a smaller batch size. In this case, I recommend only loading a subset of the dataset to speed up training. You can do it by modifying the previous code block, like ‘max_num_samples = 10000’ to only load 10k samples.\n\nConfigure ORPO\nWe define the configuration for the ORPO training. This configuration includes various hyperparameters and settings for training. An important parameter to set is beta. beta is the constant λ of the loss function in the paper. It controls how much weight we give to the preference part vs. the cross-entropy part. In our example, we set the value to 0.2.\n\nfrom trl import ORPOTrainer, ORPOConfig\nfrom unsloth import is_bfloat16_supported\n\norpo_config = ORPOConfig(\n    beta=0.2,\n    save_steps=500, \n    logging_steps=1,\n    num_train_epochs=epochs,\n    output_dir=save_dir,\n    evaluation_strategy='steps', \n    do_eval=True,\n    eval_steps=0.2,\n    per_device_eval_batch_size=batch_size,\n    per_device_train_batch_size=batch_size,\n    gradient_accumulation_steps=grad_accum,\n    log_level='debug',\n    optim='paged_adamw_8bit',\n    fp16 = not is_bfloat16_supported(),\n    bf16 = is_bfloat16_supported(),\n    max_grad_norm=0.3,\n    lr_scheduler_type='linear',\n    warmup_ratio=0.03,\n    learning_rate=1e-4, \n\n    max_prompt_length=512,\n    max_length=1024,\n\n    max_completion_length=1024,\n    remove_unused_columns=True,\n    \n)\n\n\n\nInitialize ORPOTrainer\nCreate an instance of ORPOTrainer with the model, datasets, tokenizer, and the configuration defined earlier.\n\norpo_trainer = ORPOTrainer(\n    model,\n    args=orpo_config,\n    train_dataset=train,\n    eval_dataset=test,\n    tokenizer=tokenizer,\n\n    callbacks=[logging_callback], # Add custom callback here\n)\n\n\n\nTrain the Model\nSet the model configuration to avoid cache warnings and start the training process.\n\nmodel.config.use_cache = False # silence the warnings\norpo_trainer.train()",
     "crumbs": [
       "{{< fa chalkboard >}} LLM Tutorials",
-      "🗣️ **Large Language Models**",
-      "1. Fine-Tune Mistral with ORPO"
+      "🗣️ **LLM Post-Training**",
+      "Fine-Tune Mistral with ORPO"
     ]
   },
   {
@@ -398,8 +398,8 @@
     "text": "Merging Adapters and Saving the Model to Hugging Face Hub\nAs a last step, we merge the adapters with the original model using 16-bit precision to enhance quality. Initially, we save it locally in the “model” directory before uploading it to the Hugging Face Hub. The trained model is available at llmat/Mistral-v0.3-7B-ORPO.\n\nmodel.save_pretrained_merged(\"model\", tokenizer, save_method=\"merged_16bit\")\nmodel.push_to_hub_merged(\"llmat/Mistral-v0.3-7B-ORPO\", tokenizer, save_method=\"merged_16bit\")",
     "crumbs": [
       "{{< fa chalkboard >}} LLM Tutorials",
-      "🗣️ **Large Language Models**",
-      "1. Fine-Tune Mistral with ORPO"
+      "🗣️ **LLM Post-Training**",
+      "Fine-Tune Mistral with ORPO"
     ]
   },
   {
@@ -410,8 +410,8 @@
     "text": "Conclusion\nThis article presented a thorough overview of ORPO fine-tuning and its practical application to a Mistral v0.3 7B model. Utilizing QLoRA’s efficient memory management, we successfully fine-tuned a 7B LLM on a high-quality dataset with minimal GPU resources.\nI hope you found this guide helpful. If you liked this article, follow me on Hugging Face @llmat. Best of luck with your model fine-tuning!",
     "crumbs": [
       "{{< fa chalkboard >}} LLM Tutorials",
-      "🗣️ **Large Language Models**",
-      "1. Fine-Tune Mistral with ORPO"
+      "🗣️ **LLM Post-Training**",
+      "Fine-Tune Mistral with ORPO"
     ]
   },
   {
@@ -422,8 +422,8 @@
     "text": "Fine-Tuning Mistral v0.3 with ORPO and Unsloth\nIn this example we will QLoRA fine-tune the Mistral v0.3 7B model using ORPO and the Unsloth framework. ORPO necessitates a preference dataset that includes a prompt, a selected answer, and a discarded answer. To achieve this, we will utilize llmat/dpo-orpo-mix-38k-balanced, a dataset that merges high-quality DPO datasets and has been further balanced using a clustering-based approach.\nLet’s start by installing the required libraries:\n\n!pip install python-dotenv\n# Installs Unsloth, Xformers (Flash Attention) and all other packages!\n!pip install \"unsloth[cu121-ampere-torch230] @ git+https://github.com/unslothai/unsloth.git\"\n!pip install --no-deps \"xformers&lt;0.0.27\" \"trl&lt;0.9.0\" peft accelerate bitsandbytes\n\nNow let’s login to our W&B workspace\n\nimport wandb\nimport os\nimport dotenv\n\ndotenv.load_dotenv()\n%env WANDB_NOTEBOOK_NAME = $Fine_tune_Mistral_with_ORPO\nwandb.login(key=os.environ[\"WANDB_API_KEY\"])\n\n\nLoad the Model and Tokenizer for LoRA\nIn the following, we will load the Mistral 7B v0.3 model in 4-bit precision.\n\ncache_dir = './model'\nmodel_id = 'mistralai/Mistral-7B-v0.3'\n\n\nfrom unsloth import FastLanguageModel\nimport torch\n\nmax_seq_length = 2048 \ndtype = None \nload_in_4bit = True \n\nmodel, tokenizer = FastLanguageModel.from_pretrained(\n    model_name = model_id,\n    max_seq_length = max_seq_length,\n    dtype = dtype,\n    load_in_4bit = load_in_4bit,\n)\n\n\n\nLoading Checks\nAfter loading the model, it’s crucial to ensure that all parameters are correctly placed on the GPU and that none are overflowing onto the CPU. This can be particularly important for large models where memory management is critical.\nTo verify the placement of the model’s parameters, you can iterate through the model’s named parameters and check their device type. If any parameter is on the CPU (indicated by the device type ‘meta’), it will be printed out. This ensures that your model is fully utilizing the GPU resources and avoiding any potential performance bottlenecks.\nHere is the code to perform this check:\n\n# Check there are no parameters overflowing onto cpu (meta).\nfor n, p in model.named_parameters():\n    if p.device.type=='meta':\n        print(f\"{n} is on meta!\")",
     "crumbs": [
       "{{< fa chalkboard >}} LLM Tutorials",
-      "🗣️ **Large Language Models**",
-      "1. Fine-Tune Mistral with ORPO"
+      "🗣️ **LLM Post-Training**",
+      "Fine-Tune Mistral with ORPO"
     ]
   },
   {
@@ -434,8 +434,8 @@
     "text": "Unsloth\nUnsloth is a fine-tuning framework designed to accelerate the training of large language models (LLMs) like Llama and Mistral, while drastically reducing memory usage. It achieves this through several optimizations:\n\nManual Derivation and Handwritten GPU Kernels: Unsloth optimizes computational steps by manually deriving and handwriting GPU kernels, bypassing inefficiencies in general-purpose libraries.\nQuantization Techniques: Utilizing 4-bit and 16-bit quantization (QLoRA) reduces memory requirements without compromising model accuracy.\nOptimized Attention Mechanisms: Integrating Flash Attention v2 for faster attention calculations and reduced memory usage.\nEnhanced Memory Management: Efficient memory allocation and data transfer processes optimize VRAM usage.\n\nUnsloth can make training up to 2 times faster on single GPUs and reduces memory usage by up to 60% without degrading accuracy, supporting diverse fine-tuning use cases, including instructional fine-tuning and direct preference optimization (DPO)",
     "crumbs": [
       "{{< fa chalkboard >}} LLM Tutorials",
-      "🗣️ **Large Language Models**",
-      "1. Fine-Tune Mistral with ORPO"
+      "🗣️ **LLM Post-Training**",
+      "Fine-Tune Mistral with ORPO"
     ]
   },
   {
@@ -446,8 +446,8 @@
     "text": "Set embed and norm layers to trainable\n\n(recommended for chat fine-tuning if the chat template has been changed)\nWhen fine-tuning a model for chat applications, it’s often beneficial to set specific layers to be trainable, especially if you are changing the chat template. This ensures that the model can adapt to the new input format more effectively.\n\n# List to hold the names of the trainable parameters\ntrainable_params_names = ['embed_tokens', 'input_layernorm', 'post_attention_layernorm', 'norm']\n\n# Set modules to be trainable\nfor n, p in model.named_parameters():\n    if any(k in n for k in trainable_params_names):\n        p.requires_grad_(True)\n    else:\n        p.requires_grad_(False) # Optional: Set the rest to be trainable\n\n# Make a dictionary of trainable parameters\ntrainable_params = {n: p for n, p in model.named_parameters() if p.requires_grad}\n\n# Convert trainable_params to state_dict format\ntrainable_params_state_dict = {n: p.data for n, p in trainable_params.items()}",
     "crumbs": [
       "{{< fa chalkboard >}} LLM Tutorials",
-      "🗣️ **Large Language Models**",
-      "1. Fine-Tune Mistral with ORPO"
+      "🗣️ **LLM Post-Training**",
+      "Fine-Tune Mistral with ORPO"
     ]
   },
   {
@@ -458,8 +458,8 @@
     "text": "Plotting Training and Evaluation Losses\nAfter training your model, it’s important to visualize the training and evaluation losses to understand how well your model is performing and to identify any potential issues. Visualizing the losses can help you diagnose problems such as overfitting or underfitting and make informed decisions about further training or model adjustments.\n\nimport matplotlib.pyplot as plt\n\n# Initialize lists to hold training and evaluation losses and steps\ntrain_losses = []\neval_losses = []\ntrain_steps = []\neval_steps = []\n\n# Populate the lists from the log history\nfor entry in orpo_trainer.state.log_history:\n    if 'loss' in entry:\n        train_losses.append(entry['loss'])\n        train_steps.append(entry['step'])\n    if 'eval_loss' in entry:\n        eval_losses.append(entry['eval_loss'])\n        eval_steps.append(entry['step'])\n\n# Plot the losses\nplt.plot(train_steps, train_losses, label='Train Loss')\nplt.plot(eval_steps, eval_losses, label='Eval Loss')\nplt.xlabel('Steps')\nplt.ylabel('Loss')\nplt.legend()\nplt.show()\n\n\n\n\nLet’s now check the W&B plots. While the loss goes down, we also can see that the difference between the chosen and rejects answers becomes clearer.",
     "crumbs": [
       "{{< fa chalkboard >}} LLM Tutorials",
-      "🗣️ **Large Language Models**",
-      "1. Fine-Tune Mistral with ORPO"
+      "🗣️ **LLM Post-Training**",
+      "Fine-Tune Mistral with ORPO"
     ]
   },
   {
@@ -470,8 +470,164 @@
     "text": "Set up Tokenizer and Padding\nBefore starting the fine-tuning process, it’s essential to configure the tokenizer and set up padding correctly. This ensures that the model can handle input sequences efficiently and that special tokens are properly managed.\n\nInspect the Tokenizer\nPrint out the tokenizer details, including the vocabulary size, beginning-of-sequence (BOS) token, end-of-sequence (EOS) token, and chat template.\n\nprint(tokenizer)\nprint(tokenizer.vocab_size)\n\n\nprint(tokenizer.bos_token)\nprint(tokenizer.eos_token)\n\n\nprint(tokenizer.chat_template)\n\n\n\nCustomize Chat Template\nWhen working with Llama/Mistral models, it’s sometimes necessary to customize the chat template to ensure the conversation is formatted correctly. This customization is particularly useful when handling cases where the initial message in the conversation might not be from the assistant. By ensuring the beginning-of-sequence token (bos_token) is correctly placed, we can maintain the proper structure and flow of the conversation.\nThe following code snippet demonstrates how to set the chat template manually for such scenarios. This template checks if the first message is from the assistant. If not, it adds the bos_token at the beginning. This step is crucial because we format the chosen and rejected responses separately, and we want to avoid adding an extra bos_token before the response when there’s no initial user message.\nThe template is defined using a Jinja-like syntax, which iterates through the messages and formats them based on their roles (user or assistant). For user messages, it wraps the content with [INST] and [/INST] tags, while for assistant messages, it appends an end-of-sequence token (eos_token).\n\ntokenizer.chat_template = \"\"\"{% if messages[0]['role'] != 'assistant' %}{{ bos_token }}{% endif %}{% for message in messages %}{% if message['role'] == 'user' %}{{ '[INST] ' + message['content'] + ' [/INST]' }}{% elif message['role'] == 'assistant' %}{{ message['content'] + eos_token }}{% endif %}{% endfor %}\n\"\"\"\n\n# Test chat template\nmessages = [\n    {'role': 'user', 'content': 'write a quick sorf algorithm in python.'},\n    {'role': 'assistant', 'content': 'here you are.'},\n    {'role': 'user', 'content': 'great.'},\n]\n\ninputs = tokenizer.apply_chat_template(messages, tokenize=False)\nprint(inputs)\n\n\n\nSet the Pad Token\nWhen working with tokenizers, it’s essential to designate a token for padding sequences to ensure they all have the same length. This padding token helps maintain the consistency of input shapes when batching data for training models. The following code snippet demonstrates how to set the padding token (pad_token) in your tokenizer by checking for the presence of specific tokens in its vocabulary.\n\n## set the pad token to &lt;pad&gt;, if not &lt;|pad|&gt;, if not &lt;unk&gt; if &lt;unk&gt;\nif '&lt;pad&gt;' in tokenizer.get_vocab():\n    print('&lt;pad&gt; token is is in the tokenizer. Usinh &lt;pad&gt; for pad')\n    #Set the pad token\n    tokenizer.pad_token = '&lt;pad&gt;'\nelif '&lt;|pad|&gt;' in tokenizer.get_vocab():\n    print('&lt;|pad|&gt; token is in the tokenizer. Using for &lt;|pad|&gt; for pad')\n    # Set the pad token\n    tokenizer.pad_token = '&lt;|pad|&gt;'\nelif '&lt;unk&gt;' in tokenizer.get_vocab():\n    print('&lt;unk&gt; token is in the tokenizer. Using for &lt;unk&gt; for pad')\n    # Set the pad token\n    tokenizer.pad_token = '&lt;unk&gt;'\nelse:\n    print(f'Using EOS token, {tokenizer.eos_token}, for padding. Warning, this ')\n    tokenizer.pad_token = tokenizer.eos_token\n\n\n\nUpdate the Model Configuration\nThe following code snippet demonstrates how to update the pad token ID in both the model and its configuration to match the tokenizer’s pad token ID. Additionally, it includes checks and print statements to verify the consistency of these IDs and provides information about the tokenizer’s special tokens.\n\n# Update pad token id in model and its config\nmodel.pad_token_id = tokenizer.pad_token_id\nmodel.config.pad_token_id = tokenizer.pad_token_id\n\n# Check if they are equal\nassert model.pad_token_id == tokenizer.pad_token_id, \"The model's pat token ID are not equal\"\n\n# Print the pad token ids\nprint('Tokenizer pad token ID:', tokenizer.pad_token_id)\nprint('Model pad token ID:', model.pad_token_id)\nprint('Model config pad token ID:', model.config.pad_token_id)\nprint('Number of tokens now in tokenizer:', tokenizer.vocab_size)\n\n\nprint('Special tokens map:', tokenizer.special_tokens_map)\nprint('All special tokens:', tokenizer.all_special_tokens)\n\n\nprint(tokenizer)",
     "crumbs": [
       "{{< fa chalkboard >}} LLM Tutorials",
-      "🗣️ **Large Language Models**",
-      "1. Fine-Tune Mistral with ORPO"
+      "🗣️ **LLM Post-Training**",
+      "Fine-Tune Mistral with ORPO"
+    ]
+  },
+  {
+    "objectID": "posts/From_Fine-Tuning_to_Deployment.html",
+    "href": "posts/From_Fine-Tuning_to_Deployment.html",
+    "title": "From Fine-Tuning to Deployment",
+    "section": "",
+    "text": "Imagine unlocking the full potential of large language models (LLMs) right on your local machine, without relying on costly cloud services. This is where Ollama shines by allowing users to harness the power of LLMs on their machines. While Ollama offers a range of ready-to-use models, there are times when a custom model is necessary, whether it’s fine-tuned on specific data or designed for a particular task. Efficiently deploying these custom models on local hardware often requires optimization techniques like quantization. In this article, we will explore the concept of quantization and demonstrate how to apply it to a fine-tuned model from Huggingface. We’ll then cover how to install Ollama, create a corresponding Modelfile for a custom model, and integrate this custom model into Ollama, proving how easy it is to bring AI capabilities in-house. All the code used in this article is available on Google Colab and in the LLM Tutorial.",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "🗣️ **LLM Post-Training**",
+      "From Fine-Tuning to Deployment"
+    ]
+  },
+  {
+    "objectID": "posts/From_Fine-Tuning_to_Deployment.html#ollama",
+    "href": "posts/From_Fine-Tuning_to_Deployment.html#ollama",
+    "title": "From Fine-Tuning to Deployment",
+    "section": "Ollama",
+    "text": "Ollama\nOllama is an open-source platform that empowers users to run large language models (LLMs) locally, bypassing the need for cloud-based services. Designed with accessibility in mind, Ollama simplifies the installation and management of a wide range of pre-trained LLMs and embedding models, enabling easy deployment without requiring extensive technical expertise. The platform provides a local API for seamless application integration and supports frameworks like LangChain. Recently tool-calling functionality has been introduced. This feature allows models to interact with external tools - like APIs, web browsers, and code interpreters - enabling them to perform complex tasks and interact with the outside world more effectively. Thanks to a large open-source community, Ollama continues evolving its capabilities, making it a robust, cost-effective solution for local AI deployment.",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "🗣️ **LLM Post-Training**",
+      "From Fine-Tuning to Deployment"
+    ]
+  },
+  {
+    "objectID": "posts/From_Fine-Tuning_to_Deployment.html#quantization-in-large-language-models",
+    "href": "posts/From_Fine-Tuning_to_Deployment.html#quantization-in-large-language-models",
+    "title": "From Fine-Tuning to Deployment",
+    "section": "Quantization in Large Language Models",
+    "text": "Quantization in Large Language Models\nQuantization is a crucial technique in machine learning that involves reducing the precision of a model’s weights and activations, without significantly impacting the model’s performance. Traditionally, these models operate using 32-bit floating point (FP32) formats, but quantization allows for the conversion of these weights to lower precision formats such as 16-bit (FP16), 8-bit (INT8), 4-bit, or even 2-bit. The primary goals of quantization are to reduce the model’s memory footprint and computational demands, thereby making it possible to deploy the model on resource-constrained hardware. There are two types of quantization techniques: post-training quantization and quantization-aware training.\n\nTypes of Quantization\n• Post-Training Quantization (PTQ): PTQ is a straightforward technique in which the model is quantized after it has been fully trained. This method is quick to implement and does not require retraining the model, making it ideal for scenarios where time or resources are limited. However, it may result in a slight decrease in accuracy since the model was not trained with quantization in mind. • Quantization-Aware Training (QAT): QAT integrates quantization into the training process, allowing the model to learn to compensate for the reduced precision. This approach generally results in better performance compared to PTQ, as the model adapts to the quantized environment during training. However, QAT requires more computational resources during training and is more complex to implement.",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "🗣️ **LLM Post-Training**",
+      "From Fine-Tuning to Deployment"
+    ]
+  },
+  {
+    "objectID": "posts/From_Fine-Tuning_to_Deployment.html#quantizing-a-custom-model",
+    "href": "posts/From_Fine-Tuning_to_Deployment.html#quantizing-a-custom-model",
+    "title": "From Fine-Tuning to Deployment",
+    "section": "Quantizing a Custom Model",
+    "text": "Quantizing a Custom Model\nIn our example, we will use the GGUF (GPT-Generated Unified Format) quantization format, released by Georgi Gerganov and the llama.cpp team. GGUF employs the post-training quantization technique and supports a range of quantization methods, allowing developers to balance model accuracy and efficiency based on their specific needs. This format is particularly favored by the community for its ability to run efficiently on both CPU and Apple devices, making it an excellent choice for local testing and deployment.\n\nInstalling the llama.cpp library\nTo start quantizing our model, we need to install the llama.cpp library. The library includes utilities to convert models into GGUF format and tools to quantize these models into various bit-widths depending on the hardware constraints.\n\n!git clone https://github.com/ggerganov/llama.cpp\n!pip install -r llama.cpp/requirements.txt -q\n!cd llama.cpp && make -j 8",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "🗣️ **LLM Post-Training**",
+      "From Fine-Tuning to Deployment"
+    ]
+  },
+  {
+    "objectID": "posts/From_Fine-Tuning_to_Deployment.html#downloading-and-preparing-the-model",
+    "href": "posts/From_Fine-Tuning_to_Deployment.html#downloading-and-preparing-the-model",
+    "title": "From Fine-Tuning to Deployment",
+    "section": "Downloading and Preparing the Model",
+    "text": "Downloading and Preparing the Model\nOnce we have the necessary tools, the next step is to download the model we want to quantize from Huggingface. In this example, we are using the Mistral-v0.3–7B-ORPO model that we fine-tuned in the last article. We download the model, rename it locally, and move it to the ./model folder.\n\n!git lfs install\n!git clone https://huggingface.co/llmat/Mistral-v0.3-7B-ORPO Mistral-v0.3-7B-ORPO\n!mv Mistral-v0.3-7B-ORPO model/\n\nOnce we have our model we need to convert it to the GGUF F16 format.\n\n!python ./llama.cpp/convert_hf_to_gguf.py ./model --outfile ./model/Mistral-v0.3-7B-ORPO-f16.gguf --outtype f16\n\nNow, we can choose the method by which we want our model to be quantized. In the context of llama.cpp, quantization methods are typically named following a specific convention: **Q#_K_M Let’s break down what each component means:  • Q:** Stands for “Quantization,” indicating that the model has undergone a process to reduce its numerical precision.  • #: Refers to the number of bits used in the quantization process. For example, 4 in Q4_K_M indicates that the model has been quantized using 4-bit integers.  • K: Denotes the use of k-means clustering in the quantization process. K-means clustering is a technique used to group similar weights, reducing the variation between them and allowing for more efficient quantization with minimal loss of accuracy. • M: Indicates the size category of the model after quantization, where: • S = Small • M = Medium • L = Large",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "🗣️ **LLM Post-Training**",
+      "From Fine-Tuning to Deployment"
+    ]
+  },
+  {
+    "objectID": "posts/From_Fine-Tuning_to_Deployment.html#quantization-methods-explained",
+    "href": "posts/From_Fine-Tuning_to_Deployment.html#quantization-methods-explained",
+    "title": "From Fine-Tuning to Deployment",
+    "section": "Quantization Methods Explained",
+    "text": "Quantization Methods Explained\nHere’s a closer look at the different quantization methods supported by llama.cpp and Ollama, following the Q#_K_M naming convention: Q2_K: This method uses 2-bit quantization, offering the most significant size reduction but with a considerable loss in accuracy. It’s mainly used in highly constrained environments where memory and processing power are extremely limited. Q3_K_S: A 3-bit quantization method using k-means clustering, optimized for small models. This method provides significant memory savings and is used when accuracy can be somewhat compromised. Q3_K_M: Similar to Q3_K_S but optimized for medium-sized models. This method offers a balanced trade-off between memory usage and accuracy. Q3_K_L: This method is tailored for larger models, using 3-bit quantization with k-means clustering to reduce size while maintaining as much accuracy as possible. Q4_0: A standard 4-bit quantization method that does not use k-means clustering. This is the default method, offering a good balance between size reduction and maintaining model accuracy. It’s suitable for general use cases where memory is limited but accuracy is still important. Q4_1: Similar to Q4_0 but with slight variations in how quantization is applied, potentially offering slightly better accuracy at the cost of a small increase in resource usage. Q4_K_S: A variation of 4-bit quantization optimized for smaller models. It reduces the model size significantly while preserving reasonable accuracy. Q4_K_M: This method applies 4-bit quantization with k-means clustering to medium-sized models, offering an excellent balance between size and accuracy. It’s one of the most recommended methods for general use. Q5_0: Uses 5-bit quantization, which offers higher precision than 4-bit methods, resulting in better accuracy. This method is a good choice when you have slightly more memory available and need to maintain higher accuracy. Q5_1: A refinement of Q5_0, providing even greater accuracy by applying more sophisticated quantization techniques, though at the cost of increased resource requirements. Q5_K_S: This method uses 5-bit quantization with k-means clustering, optimized for smaller models, providing higher accuracy than 4-bit methods with only a slight increase in resource use. Q5_K_M: An advanced 5-bit quantization technique optimized for medium-sized models, providing high accuracy with reasonable memory efficiency. This method is often recommended for scenarios where accuracy is critical but resources are still somewhat limited. Q6_K: This method uses 6-bit quantization, providing a middle ground between 4-bit and 8-bit methods. It’s suitable when you need more accuracy than what 4-bit offers but can’t afford the higher resource demands of 8-bit quantization. Q8_0: Uses 8-bit quantization, which is nearly as accurate as the original float16 model. This method is best for scenarios where you need to preserve as much accuracy as possible while still reducing the model size. In our example we choose to quantize our model to 4-bit, using the Q4_K_M method.\n\n!mkdir Mistral-v0.3-7B-ORPO_Q4_K_M\n!./llama.cpp/llama-quantize ./model/Mistral-v0.3-7B-ORPO-f16.gguf ./Mistral-v0.3-7B-ORPO_Q4_K_M/Mistral-v0.3-7B-ORPO_Q4_K_M.gguf Q4_K_M",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "🗣️ **LLM Post-Training**",
+      "From Fine-Tuning to Deployment"
+    ]
+  },
+  {
+    "objectID": "posts/From_Fine-Tuning_to_Deployment.html#push-model-to-hub-optional",
+    "href": "posts/From_Fine-Tuning_to_Deployment.html#push-model-to-hub-optional",
+    "title": "From Fine-Tuning to Deployment",
+    "section": "Push model to hub (Optional)",
+    "text": "Push model to hub (Optional)\n\n# imports from huggingface\nfrom huggingface_hub import create_repo, HfApi\nimport dotenv\nimport os\n\ndotenv.load_dotenv()\nusername = \"llmat\"\nHUGGINGFACE_TOKEN = os.getenv('HUGGINGFACE_TOKEN')\nMODEL_NAME = \"Mistral-v0.3-7B-ORPO_Q4_K_M\"\n\n\n# Defined in the .env\napi = HfApi(token=HUGGINGFACE_TOKEN)\n\n# Create empty repo\ncreate_repo(\n    repo_id = f\"{username}/{MODEL_NAME}-GGUF\",\n    repo_type=\"model\",\n    exist_ok=True,\n)\n\n# Upload gguf files\napi.upload_folder(\n    folder_path=MODEL_NAME,\n    repo_id=f\"{username}/{MODEL_NAME}-GGUF\",\n    allow_patterns=f\"*.gguf\",\n)",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "🗣️ **LLM Post-Training**",
+      "From Fine-Tuning to Deployment"
+    ]
+  },
+  {
+    "objectID": "posts/From_Fine-Tuning_to_Deployment.html#install-ollama",
+    "href": "posts/From_Fine-Tuning_to_Deployment.html#install-ollama",
+    "title": "From Fine-Tuning to Deployment",
+    "section": "Install Ollama",
+    "text": "Install Ollama\nWith our model now quantized, the next step is to install and start Ollama. To begin, install Ollama by using this link:\nDownload link: https://ollama.com/download\nFor Windows Installation: After downloading the executable file, simply run it, and Ollama will be installed automatically.\nFor MacOS Installation: After the download completes on MacOS, unzip the downloaded file. Then, simply drag the Ollama.app folder into your Applications folder.\nLinux installation: Just run below command in your terminal. Ollama will be installed.\n\n!curl -fsSL https://ollama.com/install.sh | sh\n\nOnce the installation is complete, start the Ollama server. If using Google Colab then execute the following commands to start Ollama:\n\n!pip install colab-xterm #https://pypi.org/project/colab-xterm/\n%load_ext colabxterm\n%xterm\n\n## A Terminal window pops up\n## Add command 'ollama serve'\n\nIf running on a local environment use this command to start the Ollama serve:\n\n!ollama serve\n\nBefore we can add our quantized model to the Ollama server, Ollama requires us to create a Modelfile.",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "🗣️ **LLM Post-Training**",
+      "From Fine-Tuning to Deployment"
+    ]
+  },
+  {
+    "objectID": "posts/From_Fine-Tuning_to_Deployment.html#modelfile-for-ollama",
+    "href": "posts/From_Fine-Tuning_to_Deployment.html#modelfile-for-ollama",
+    "title": "From Fine-Tuning to Deployment",
+    "section": "Modelfile for Ollama",
+    "text": "Modelfile for Ollama\nOllama’s Modelfile is a developing syntax designed to act as a blueprint, defining key components and parameters to customize model behavior within the Ollama ecosystem. The Modelfile includes several key instructions: • FROM (Required): Specifies the base model or file to build from. • PARAMETER: Sets various operational parameters like temperature, context window size, and stopping conditions, influencing model output and behavior. • TEMPLATE: Defines the prompt structure, including system messages and user prompts, which guides the model’s responses. • SYSTEM: Sets the system message to dictate the model’s behavior. • ADAPTER: Applies LoRA adapters to the model for further customization. • LICENSE: Specifies the legal license under which the model is shared. • MESSAGE: Provides a message history to influence how the model generates responses.",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "🗣️ **LLM Post-Training**",
+      "From Fine-Tuning to Deployment"
+    ]
+  },
+  {
+    "objectID": "posts/From_Fine-Tuning_to_Deployment.html#create-custom-modelfile",
+    "href": "posts/From_Fine-Tuning_to_Deployment.html#create-custom-modelfile",
+    "title": "From Fine-Tuning to Deployment",
+    "section": "Create Custom Modelfile",
+    "text": "Create Custom Modelfile\nIn our example, we only need to set the path, define the template, and set parameters for the stopping conditions. Path to the Quantized Model: The Modelfile needs to specify the path to the quantized model stored on our system. This ensures the correct model is loaded for processing. Template for Message Processing: The template within the Modelfile is based on the chat template used in the base model. It is responsible for processing and formatting messages according to their roles, such as “user” or “assistant.” This structure guarantees that the model’s output adheres to the dialogue format it was fine-tuned for. Stop Parameters: The stop parameters identify the boundaries of the instructions provided to the model and the responses generated by it. The markers “[INST]” and “[/INST]” signal the start and end of the user’s input, respectively. These delimiters ensure the model recognizes where the user’s message begins and ends. Below is how we define the path to our quantized model, construct the template content and stopping parameters within the Modelfile for our example:\n\n# Creating the content for the Modelfile\ntemplate_content = \"\"\"TEMPLATE \"\"\"\ntemplate_content += '''\"\"\"\n{{- if .Messages }}\n    {{- range $index, $_ := .Messages }}\n        {{- if eq .Role \"user\" }}\n            [INST] \n            {{ .Content }}[/INST]\n        {{- else if eq .Role \"assistant\" }}\n            {{- if .Content }} {{ .Content }}\n            {{- end }}&lt;/s&gt;\n        {{- end }}\n    {{- end }}\n{{- else }}\n    [INST] \n    {{ .Prompt }}[/INST]\n{{- end }} \n{{ .Response }}\n{{- if .Response }}&lt;/s&gt;\n{{- end }}\n\"\"\"'''\n\n# Write the rest of the parameters to the file\nwith open('./Mistral-v0.3-7B-ORPO_Q4_K_M/modelfile', 'w') as file:\n    file.write('FROM ./Mistral-v0.3-7B-ORPO_Q4_K_M.gguf\\n\\n')\n    file.write('PARAMETER stop \"[INST]\"\\n')\n    file.write('PARAMETER stop \"[/INST]\"\\n\\n')\n    file.write(template_content)\n\nLet’s break down the template content: • Processing Messages: The template processes the list of messages (.Messages) by identifying the role of each sender (.Role), effectively structuring the conversation. • Formatting User Messages: Messages from the “user” are enclosed within [INST] tags. If the message is the user’s only input and a system message exists, it is included at the beginning. • Formatting Assistant Messages: Messages from the “assistant” are output directly without additional tags, with a  tag appended to signify the end of the response. • Handling Edge Cases: If no messages are present, the template provides a fallback instruction within [INST] tags to ensure that the model still generates meaningful content. • Final Response Handling: The final response is appended and closed with a  tag, ensuring the conversation is properly terminated. After creating the Modelfile, you can display the file content to verify:\n\n# Display the file content\nwith open('./Mistral-v0.3-7B-ORPO_Q4_K_M/modelfile', 'r') as file:\n    content = file.read()\n\nWith the Modelfile ready, we can now create and add our quantized model to Ollama. This command registers the quantized model with Ollama using the configurations specified in the Modelfile:\n\n!ollama create mistral-v0.3-7B-orpo_Q4_K_M -f ./Mistral-v0.3-7B-ORPO_Q4_K_M/modelfile\n\nWe can now check if our quantized model is now listed and ready to use.\n\n!ollama list\n\nNext, we install the necessary library to test the model using the LangChain framework:\n\n!pip install langchain-community langchain-core\n\nNow we run and test the model on Ollama:\n\nfrom langchain.llms import Ollama\n\nollama = Ollama(base_url=\"http://localhost:11434\", model=\"mistral-v0.3-7B-orpo_Q4_K_M\")\n\nTEXT_PROMPT = \"What is one plus one?\"\n\nprint(ollama(TEXT_PROMPT))\n\nOne plus one equals two.\n\n\nThe model should return a correct response.",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "🗣️ **LLM Post-Training**",
+      "From Fine-Tuning to Deployment"
+    ]
+  },
+  {
+    "objectID": "posts/From_Fine-Tuning_to_Deployment.html#conclusion",
+    "href": "posts/From_Fine-Tuning_to_Deployment.html#conclusion",
+    "title": "From Fine-Tuning to Deployment",
+    "section": "Conclusion",
+    "text": "Conclusion\nThis article has walked you through the process of quantizing a custom model, integrating it with Ollama, and testing it locally. By leveraging the llama.cpp framework we quantized our custom model in the Q4_K_M format and pushed it to Hugging Face Hub. We then discussed how to create the corresponding Modelfile and how to integrate our model into the Ollama framework. Quantization, offers significant benefits, including reduced memory footprint, faster inference times, and lower power consumption. These advantages make it feasible to deploy sophisticated AI models across a variety of hardware configurations, from high-performance servers to low-power edge devices, broadening the scope of where and how AI can be applied. I hope you enjoyed reading this article and learned something new. You can find the quantized model from this example on Huggingface.",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "🗣️ **LLM Post-Training**",
+      "From Fine-Tuning to Deployment"
+    ]
+  },
+  {
+    "objectID": "posts/From_Fine-Tuning_to_Deployment.html#references",
+    "href": "posts/From_Fine-Tuning_to_Deployment.html#references",
+    "title": "From Fine-Tuning to Deployment",
+    "section": "References",
+    "text": "References\nBrev.dev. (2024). Convert a fine-tuned model to GGUF format and run on Ollama. https://brev.dev/blog/convert-to-llamacpp IBM. (2024). GGUF versus GGML. IBM. https://www.ibm.com/think/topics/gguf-versus-ggml Ollama. (2024). Retrieved from https://ollama.com/blog PatrickPT’s Blog. (2024). LLM Quantization in a nutshell. https://patrickpt.github.io/posts/quantllm/",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "🗣️ **LLM Post-Training**",
+      "From Fine-Tuning to Deployment"
+    ]
+  },
+  {
+    "objectID": "posts/From_Fine-Tuning_to_Deployment.html#push-model-to-hub",
+    "href": "posts/From_Fine-Tuning_to_Deployment.html#push-model-to-hub",
+    "title": "From Fine-Tuning to Deployment",
+    "section": "",
+    "text": "# imports from huggingface\nfrom huggingface_hub import create_repo, HfApi\n\nusername = \"llmat\"\nHUGGINGFACE_TOKEN = \"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\"\nMODEL_NAME = \"Mistral-v0.3-7B-ORPO_Q8_0\"\n\n\n# Defined in the .env\napi = HfApi(token=HUGGINGFACE_TOKEN)\n\n# Create empty repo\ncreate_repo(\n    repo_id = f\"{username}/{MODEL_NAME}-GGUF\",\n    repo_type=\"model\",\n    exist_ok=True,\n)\n\n# Upload gguf files\napi.upload_folder(\n    folder_path=MODEL_NAME,\n    repo_id=f\"{username}/{MODEL_NAME}-GGUF\",\n    allow_patterns=f\"*.gguf\",\n)\n\n\n\n\nCommitInfo(commit_url='https://huggingface.co/llmat/Mistral-v0.3-7B-ORPO_q8_0-GGUF/commit/7d6b711f87115356c13a8fcdcc1887c4406d07b2', commit_message='Upload folder using huggingface_hub', commit_description='', oid='7d6b711f87115356c13a8fcdcc1887c4406d07b2', pr_url=None, pr_revision=None, pr_num=None)",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "🗣️ **LLM Post-Training**",
+      "From Fine-Tuning to Deployment"
     ]
   }
 ]
