@@ -21,7 +21,7 @@ website:
       - text: "![](images/hf-icon.svg)"
         href: https://huggingface.co/llmat
     pinned: false
-  google-analytics: "G-4DWYJM47PC"
+  google-analytics: "G-NGC1E22WQG"
   favicon: /images/favicon.ico
   twitter-card: true
   open-graph: true
