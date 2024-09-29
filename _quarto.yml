@@ -44,11 +44,19 @@ website:
         - text: "---"
         - section: "🗣️ **LLM Pre-Training**"
         - text: "---"
+        
+        - section: "⚡ **Prompting**"
+          contents:
+            - text: "Monte Carlo Tree Self-Refine"
+              href: posts/monte_carlo_self_refine.html
+        
+        - text: "---"
         - section: "⚡ **RAG Systems**"
         - text: "---"
-        - text: "---"
+        
         - section: "⚡ **Agents**"
         - text: "---"
+
         
 format:
   html:

@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": " Articles",
     "section": "",
-    "text": "From Fine-Tuning to Deployment\n\n\nHarnessing Custom LLMs with Ollama and Quantization\n\n\n\nPost-Training LLM\n\n\n\n\n\n\nAug 31, 2024\n\n\n11 min\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFine-Tune Mistral v0.3 with ORPO and Unsloth\n\n\nLow-Rank Adapter Model Fine-tuning\n\n\n\nPost-Training LLM\n\n\n\n\n\n\nJul 30, 2024\n\n\n11 min\n\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Monte Carlo Tree Self-Refine\n\n\nUnlocking Advanced Mathematical Reasoning with Monte Carlo Tree Self-Refine\n\n\n\nPrompting\n\n\n\n\n\n\nSep 30, 2024\n\n\n12 min\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFrom Fine-Tuning to Deployment\n\n\nHarnessing Custom LLMs with Ollama and Quantization\n\n\n\nPost-Training LLM\n\n\n\n\n\n\nAug 31, 2024\n\n\n11 min\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFine-Tune Mistral v0.3 with ORPO and Unsloth\n\n\nLow-Rank Adapter Model Fine-tuning\n\n\n\nPost-Training LLM\n\n\n\n\n\n\nJul 30, 2024\n\n\n11 min\n\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -628,6 +628,195 @@
       "{{< fa chalkboard >}} LLM Tutorials",
       "🗣️ **LLM Post-Training**",
       "From Fine-Tuning to Deployment"
+    ]
+  },
+  {
+    "objectID": "posts/Dataset Creation.html",
+    "href": "posts/Dataset Creation.html",
+    "title": "From Fine-Tuning to Deployment",
+    "section": "",
+    "text": "Imagine unlocking the full potential of large language models (LLMs) right on your local machine, without relying on costly cloud services. This is where Ollama shines by allowing users to harness the power of LLMs on their machines. While Ollama offers a range of ready-to-use models, there are times when a custom model is necessary, whether it’s fine-tuned on specific data or designed for a particular task. Efficiently deploying these custom models on local hardware often requires optimization techniques like quantization. In this article, we will explore the concept of quantization and demonstrate how to apply it to a fine-tuned model from Huggingface. We’ll then cover how to install Ollama, create a corresponding Modelfile for a custom model, and integrate this custom model into Ollama, proving how easy it is to bring AI capabilities in-house. All the code used in this article is available on Google Colab and in the LLM Tutorial."
+  },
+  {
+    "objectID": "posts/Dataset Creation.html#conclusion",
+    "href": "posts/Dataset Creation.html#conclusion",
+    "title": "From Fine-Tuning to Deployment",
+    "section": "Conclusion",
+    "text": "Conclusion\nThis article has walked you through the process of quantizing a custom model, integrating it with Ollama, and testing it locally. By leveraging the llama.cpp framework we quantized our custom model in the Q4_K_M format and pushed it to Hugging Face Hub. We then discussed how to create the corresponding Modelfile and how to integrate our model into the Ollama framework. Quantization, offers significant benefits, including reduced memory footprint, faster inference times, and lower power consumption. These advantages make it feasible to deploy sophisticated AI models across a variety of hardware configurations, from high-performance servers to low-power edge devices, broadening the scope of where and how AI can be applied. I hope you enjoyed reading this article and learned something new. You can find the quantized model from this example on Huggingface."
+  },
+  {
+    "objectID": "posts/Dataset Creation.html#references",
+    "href": "posts/Dataset Creation.html#references",
+    "title": "From Fine-Tuning to Deployment",
+    "section": "References",
+    "text": "References\nBrev.dev. (2024). Convert a fine-tuned model to GGUF format and run on Ollama. https://brev.dev/blog/convert-to-llamacpp IBM. (2024). GGUF versus GGML. IBM. https://www.ibm.com/think/topics/gguf-versus-ggml Ollama. (2024). Retrieved from https://ollama.com/blog PatrickPT’s Blog. (2024). LLM Quantization in a nutshell. https://patrickpt.github.io/posts/quantllm/"
+  },
+  {
+    "objectID": "posts/monte_carlo_self_refine.html",
+    "href": "posts/monte_carlo_self_refine.html",
+    "title": "Monte Carlo Tree Self-Refine",
+    "section": "",
+    "text": "The rapid advancement of artificial intelligence has ushered in a new era of large language models (LLMs) like GPT-4 and LLaMA. These models have demonstrated remarkable abilities in natural language understanding, generation, and even exhibited emergent properties such as reasoning and in-context learning. They have been deployed across various domains, from generating coherent narratives to assisting in programming tasks. However, when it comes to complex mathematical reasoning, especially at the level of mathematical Olympiads, these models often fall short.\nDespite their impressive linguistic capabilities, LLMs struggle with the precision and logical rigor required for high-level mathematics. They are prone to generating “hallucinations” - plausible-sounding but incorrect or irrelevant outputs - which can be particularly problematic in mathematical contexts where accuracy is paramount. Traditional methods to mitigate these issues, such as self-refinement techniques, provide some relief but do not fully bridge the gap.\nEnter the Monte Carlo Tree Self-Refine (MCTSr) algorithm - a novel integration of LLMs with Monte Carlo Tree Search (MCTS). This innovative approach systematically explores the solution space and employs heuristic self-refinement mechanisms to enhance decision-making within LLMs. By constructing a Monte Carlo search tree through iterative processes of selection, self-refinement, self-evaluation, and backpropagation, MCTSr optimizes the balance between exploration and exploitation. The result is a significant improvement in the LLM’s ability to solve complex mathematical problems, reaching success rates comparable to GPT-4 on Olympiad-level benchmarks.\nIn this article, we delve into the theoretical underpinnings of the MCTSr technique, explore its implementation through code examples, and demonstrate its effectiveness in enhancing mathematical reasoning in LLMs. Whether you’re an AI researcher, a data scientist, or simply curious about the intersection of machine learning and mathematics, this exploration offers valuable insights into pushing the boundaries of what LLMs can achieve.",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "⚡ **Prompting**",
+      "Monte Carlo Tree Self-Refine"
+    ]
+  },
+  {
+    "objectID": "posts/monte_carlo_self_refine.html#theoretical-foundations-of-monte-carlo-tree-self-refine",
+    "href": "posts/monte_carlo_self_refine.html#theoretical-foundations-of-monte-carlo-tree-self-refine",
+    "title": "Monte Carlo Tree Self-Refine",
+    "section": "Theoretical Foundations of Monte Carlo Tree Self-Refine",
+    "text": "Theoretical Foundations of Monte Carlo Tree Self-Refine\nTo understand the Monte Carlo Tree Self-Refine (MCTSr) technique, it’s essential to grasp the fundamentals of both Monte Carlo Tree Search (MCTS) and the limitations of LLMs in mathematical reasoning. MCTSr marries these two domains to overcome the challenges inherent in each.\n\nMonte Carlo Tree Search (MCTS) Primer\nMCTS is a heuristic search algorithm used extensively in decision-making processes, particularly in game playing (like Go and chess) and complex problem-solving scenarios. The algorithm incrementally builds a search tree, guided by the outcomes of random simulations (also known as rollouts), to evaluate the potential of different actions.\n\n\nMCTS operates through four primary phases:\n\nSelection: Starting from the root node, the algorithm selects child nodes based on a policy (e.g., the Upper Confidence Bound for Trees, or UCT) until it reaches a leaf node.\nExpansion: If the leaf node is not a terminal state, the algorithm adds one or more child nodes, representing possible future states.\nSimulation (Rollout): From the new node, the algorithm performs a simulation to the end of the game or task, using a default policy to make decisions.\nBackpropagation: The results of the simulation are propagated back up the tree, updating the statistics of the nodes involved (e.g., win/loss records).\n\nThe key to MCTS’s success is balancing exploration (trying new, untested actions) and exploitation (choosing actions known to yield good results). This balance is often achieved using the Upper Confidence Bound for Trees algorithm (UCT), which selects child nodes that maximize the following equation:",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "⚡ **Prompting**",
+      "Monte Carlo Tree Self-Refine"
+    ]
+  },
+  {
+    "objectID": "posts/monte_carlo_self_refine.html#challenges-in-applying-mcts-to-llms",
+    "href": "posts/monte_carlo_self_refine.html#challenges-in-applying-mcts-to-llms",
+    "title": "Monte Carlo Tree Self-Refine",
+    "section": "Challenges in Applying MCTS to LLMs",
+    "text": "Challenges in Applying MCTS to LLMs\nWhile MCTS is powerful, directly applying it to LLMs isn’t straightforward. LLMs generate outputs in a continuous and infinite space, making the action space vast and unbounded. Traditional MCTS relies on discrete, finite action spaces. Moreover, LLMs can produce inconsistent outputs due to their generative nature, complicating the evaluation of states and actions.",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "⚡ **Prompting**",
+      "Monte Carlo Tree Self-Refine"
+    ]
+  },
+  {
+    "objectID": "posts/monte_carlo_self_refine.html#introducing-monte-carlo-tree-self-refine-mctsr",
+    "href": "posts/monte_carlo_self_refine.html#introducing-monte-carlo-tree-self-refine-mctsr",
+    "title": "Monte Carlo Tree Self-Refine",
+    "section": "Introducing Monte Carlo Tree Self-Refine (MCTSr)",
+    "text": "Introducing Monte Carlo Tree Self-Refine (MCTSr)\nMCTSr addresses these challenges by integrating self-refinement and self-evaluation mechanisms into the MCTS framework. It adapts the traditional MCTS algorithm to operate effectively within the context of LLMs tackling mathematical problems.",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "⚡ **Prompting**",
+      "Monte Carlo Tree Self-Refine"
+    ]
+  },
+  {
+    "objectID": "posts/monte_carlo_self_refine.html#key-components-and-notations",
+    "href": "posts/monte_carlo_self_refine.html#key-components-and-notations",
+    "title": "Monte Carlo Tree Self-Refine",
+    "section": "Key Components and Notations",
+    "text": "Key Components and Notations\nBefore diving into the algorithm, let’s define the key components and notations:\n\nProblem Instance (P): The mathematical problem to be solved.\nAnswer Nodes (A): Each node represents a potential solution to P.\nActions (M): Possible self-refinement modifications to an answer.\nReward Function (R): Samples self-rewards based on the quality of the modifications.\nReward Set (Ra): Stores all reward samples for node a.\nQuality Function (Q(a)): Estimates the value of an answer node a, derived from accumulated rewards.\nUpper Confidence Bound (U(a)): Balances exploration and exploitation in node selection.\nParent Node (Father(a)): The node from which a was derived.\nChild Nodes (Children(a)): Nodes derived from a through actions m ∈ M.\nVisit Count (N(a)): The number of times node a has been visited.",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "⚡ **Prompting**",
+      "Monte Carlo Tree Self-Refine"
+    ]
+  },
+  {
+    "objectID": "posts/monte_carlo_self_refine.html#algorithm-workflow",
+    "href": "posts/monte_carlo_self_refine.html#algorithm-workflow",
+    "title": "Monte Carlo Tree Self-Refine",
+    "section": "Algorithm Workflow",
+    "text": "Algorithm Workflow\n\nInitialization: Start with a root node representing an initial answer to P. This could be a naive solution or even a placeholder response like “I don’t know.”\nSelection:\n\n\nUse the quality function Q to evaluate all expandable nodes.\nSelect the node with the highest U(a) value for further exploration.\n\n\nSelf-Refinement:\n\n\nApply a self-refinement action m to the selected node a.\nThe LLM generates feedback or criticism about a and produces an improved answer a’ guided by this feedback.\n\n\nSelf-Evaluation:\n\n\nThe LLM evaluates a’ to assign a reward, sampling multiple times to reduce variance.\nApply constraints to ensure meaningful rewards:\n\nPrompt Constraint: Instruct the model to adhere to strict evaluation standards.\nFull Score Suppression: Discourage perfect scores to maintain discernment.\nRepeated Sampling: Collect multiple reward samples to improve reliability. \n\n\n\nBackpropagation:\n\n\nUpdate the Q values of a and its ancestors based on the rewards obtained.\nThe updated Q value of a node a considers both its own reward and the maximum Q value among its children.\n\n\nUCT Update:\n\n\nRecalculate U(a) for all candidate nodes.\n\n\nTermination:\n\n\nThe process repeats until a termination condition is met (e.g., maximum iterations, satisfactory solution quality).\nUpon termination, select the best answer based on the highest Q(a) value.",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "⚡ **Prompting**",
+      "Monte Carlo Tree Self-Refine"
+    ]
+  },
+  {
+    "objectID": "posts/monte_carlo_self_refine.html#detailed-explanation-of-components",
+    "href": "posts/monte_carlo_self_refine.html#detailed-explanation-of-components",
+    "title": "Monte Carlo Tree Self-Refine",
+    "section": "Detailed Explanation of Components",
+    "text": "Detailed Explanation of Components\n\nSelf-Refinement\nSelf-refinement leverages the LLM’s capability to critique and improve upon its own outputs. The model generates feedback m on the current answer a and then refines a into a’ based on this feedback. This process simulates a human iteratively improving a solution by self-critique.\n###Self-Evaluation In self-evaluation, the LLM assesses the quality of the refined answer a’ and assigns a reward. Since LLMs tend to produce overly generous evaluations, constraints are necessary: - Prompt Constraint: The model is instructed to be strict and critical in its evaluation. - Full Score Suppression: Perfect scores are penalized to encourage meaningful differentiation. - Repeated Sampling: Multiple evaluations are averaged to reduce bias.\nThe quality function Q(a) is computed as:\n\n\n\nThis formula balances the worst-case scenario (min Ra) with the average reward, providing a more robust estimate of the answer’s quality.\n\n\nBackpropagation\nAfter updating the Q(a) of a, the algorithm backpropagates this information up the tree. The Q value of each parent node is updated based on its own Q(a) and the maximum Q value among its children:\n\n\n\nThis ensures that the parent nodes are aware of the best potential outcomes from their descendants.\n\n\nUCT Update and Selection\nThe updated UCT value for each candidate node guides the selection of the next node to explore. By balancing the estimated quality of the node (Q(a)) and the need to explore less-visited nodes, the algorithm efficiently navigates the search space.\n\n\nTermination Conditions\nThe algorithm can terminate based on various criteria: - Early Stopping: If improvements become negligible or solutions converge. - Resource Constraints: Maximum number of iterations or time limits. - Solution Quality: If a solution meets a predefined quality threshold.\n\n\nAdvantages of MCTSr\n\nSystematic Exploration: By structuring the search as a tree, the algorithm systematically explores possible refinements.\nBalanced Decision-Making: The UCT formula ensures a balance between exploiting known good solutions and exploring new possibilities.\nEnhanced Accuracy: Self-evaluation and refinement lead to higher-quality solutions, reducing errors common in LLM outputs.\nScalability: The framework can adapt to various problem complexities by adjusting parameters like the exploration constant c and termination conditions.",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "⚡ **Prompting**",
+      "Monte Carlo Tree Self-Refine"
+    ]
+  },
+  {
+    "objectID": "posts/monte_carlo_self_refine.html#practical-implementation-of-mctsr",
+    "href": "posts/monte_carlo_self_refine.html#practical-implementation-of-mctsr",
+    "title": "Monte Carlo Tree Self-Refine",
+    "section": "Practical Implementation of MCTSr",
+    "text": "Practical Implementation of MCTSr\nTo bring the theoretical concepts of MCTSr to life, let’s delve into a practical implementation using Python code. This implementation demonstrates how the algorithm can be applied to improve the performance of an LLM in solving mathematical problems.\n\nSetting Up Seed Answers\n\n# Seed answers to initiate the MCTS\nseed_answers = [\n    \"I don't know the answer\",\n    \"I'm not sure\",\n    \"I can't say\",\n]\n\n\n\nCritiquing an Answer\nThe critique_answer function prompts the LLM to analyze a given answer and provide a detailed critique. This critique will guide the refinement process.\n\n# Get Critique\ndef critique_answer(question, answer):\n    prompt = (\n        f\"Question: {question}\\n\"\n        f\"Answer Attempt: {answer}\\n\"\n        \"Please analyze the answer above. \"\n        \"Identify any inaccuracies or areas lacking detail. \"\n        \"Provide a thorough critique, highlighting specific flaws and suggesting improvements. \"\n        \"Your critique should be detailed and step-by-step. \"\n        \"Do not provide a revised answer.\"\n    )\n    # Request critique from the language model\n    return chat_completion_request(prompt)\n\nExplanation: This function constructs a prompt that includes the question and the current answer. It instructs the LLM to provide a detailed critique without offering a revised answer.\n\n\nRefining the Answer\nUsing the critique, the refine_answer function prompts the LLM to generate an improved answer.\n\n# Improve the answer\ndef refine_answer(question, answer, critique):\n    prompt = (\n        f\"Question: {question}\\n\"\n        f\"Current Answer: {answer}\\n\"\n        f\"Feedback: {critique}\\n\\n\"\n        \"Based on the feedback, refine the answer to address all the points raised. \"\n        \"Ensure the new answer is accurate, detailed, and well-structured. \"\n        \"Present your reasoning process and verification steps before providing the final answer.\"\n    )\n    # Request refined answer from the language model\n    return chat_completion_request(prompt)\n\nExplanation: This function constructs a prompt that includes the question, the current answer, and the critique. It instructs the LLM to refine the answer based on the feedback.\n\n\nEvaluating the Answer\nThe evaluate_answer function asks the LLM to assess the refined answer, provide a critique, and assign a numerical rating.\n\ndef evaluate_answer(question, answer):\n    prompt = (\n        f\"Question: {question}\\n\"\n        f\"Answer: {answer}\\n\"\n        \"As an expert, assess the answer above for correctness and completeness. \"\n        \"Provide a detailed critique, pointing out any issues. \"\n        \"Then, assign a rating between 0 and 100, where 100 represents a perfect answer. \"\n        \"Format:\\n\"\n        \"Critique: &lt;Your detailed critique&gt;\\n\"\n        \"Rating: &lt;Numerical rating&gt;\"\n    )\n    # Request evaluation from the language model\n    evaluation = chat_completion_request(prompt)\n    \n    # Extract the rating from the evaluation\n    try:\n        match = re.search(r'Rating:\\s*(\\d+\\.?\\d*)', evaluation)\n        if match:\n            rating = float(match.group(1))\n            rating = min(rating, 95)  # Cap the rating at 95\n            rating /= 100.0\n        else:\n            raise ValueError(\"Rating not found in the evaluation.\")\n    except Exception as e:\n        print(f\"Error extracting rating: {e}\")\n        print(f\"Evaluation response: {evaluation}\")\n        rating = 0.0\n    \n    print(f\"\\nEvaluation Response:\\n{evaluation}\")\n    return rating\n\nExplanation: The function prompts the LLM to critique the answer and assign a rating. It then parses the LLM’s response to extract the numerical rating, capping it at 95 to prevent overconfidence and normalizing it to a value between 0 and 1.\n\n\nDefining the Tree Node Structure\nWe define a TreeNode class to represent nodes in the MCTS tree. Each node contains an answer and references to its parent and children.\n\nimport math\nimport random\nimport numpy as np\nimport re\n\n# Define the maximum number of children per node\nMAX_CHILDREN = 3\n\nclass TreeNode:\n    def __init__(self, question, answer, parent=None):\n        self.question = question\n        self.answer = answer\n        self.parent = parent\n        self.children = []\n        self.visits = 0\n        self.value = 0.0\n        self.Ra = []  # List to store all reward samples\n        self.Q = 0.0  # Quality value Q(a)\n\n    def fully_expanded(self):\n        return len(self.children) &gt;= MAX_CHILDREN\n\n    def select_promising_child(self, exploration_param=1.41):\n        best_score = float('-inf')\n        best_child = None\n        for child in self.children:\n            if child.visits == 0:\n                ucb_score = float('inf')\n            else:\n                # Compute Q(a) using the exact formula\n                min_ra = min(child.Ra)\n                avg_ra = child.value / child.visits\n                child.Q = 0.5 * (min_ra + avg_ra)\n                \n                exploration = exploration_param * math.sqrt(2 * math.log(self.visits) / child.visits)\n                ucb_score = child.Q + exploration\n            if ucb_score &gt; best_score:\n                best_score = ucb_score\n                best_child = child\n        return best_child\n\n    def most_visited_child(self):\n        return max(self.children, key=lambda c: c.visits, default=None)\n\n    def add_child(self, child_node):\n        self.children.append(child_node)\n\nExplanation: - fully_expanded: Checks if the node has reached the maximum number of child nodes. - select_promising_child: Implements the UCT formula to select the most promising child node. - most_visited_child: Retrieves the child node with the highest visit count. - add_child: Adds a new child node to the current node.\n\n\nImplementing the Monte Carlo Tree Search\nThe MonteCarloTreeSearch class orchestrates the MCTS process, integrating the functions defined earlier.\n\nclass MonteCarloTreeSearch:\n    def __init__(self, question, initial_answers, iterations=3):\n        self.question = question\n        self.iterations = iterations\n        # Initialize the root with a random seed answer\n        self.root = TreeNode(question, random.choice(initial_answers))\n\n    def perform_search(self):\n        for iteration in range(self.iterations):\n            print(f\"\\nIteration {iteration + 1}/{self.iterations}\")\n            node = self._tree_policy(self.root)\n            print(f\"Selected Node Answer: {node.answer}\")\n            reward = self._default_policy(node)\n            print(f\"Simulated Reward: {reward}\")\n            self._backpropagate(node, reward)\n        best_child = self.root.most_visited_child()\n        if best_child:\n            print(f\"Most Visited Child Visits: {best_child.visits}\")\n            return best_child.answer\n        else:\n            return self.root.answer\n\n    def _tree_policy(self, node):\n        while not node.fully_expanded():\n            return self._expand(node)\n        return self._best_child(node)\n\n    def _expand(self, node):\n        for _ in range(MAX_CHILDREN - len(node.children)):\n            # Generate a critique and refine the answer\n            critique = critique_answer(node.question, node.answer)\n            print(f\"\\nCritique:\\n{critique}\")\n            refined_answer = refine_answer(node.question, node.answer, critique)\n            print(f\"\\nRefined Answer:\\n{refined_answer}\")\n            # Create a new child node with the refined answer\n            child_node = TreeNode(node.question, refined_answer, parent=node)\n            node.add_child(child_node)\n        # Return one of the newly added children\n        return random.choice(node.children)\n\n    def _default_policy(self, node):\n        return evaluate_answer(node.question, node.answer)\n\n    def _backpropagate(self, node, reward):\n        while node is not None:\n            node.visits += 1\n            node.value += reward\n            node.Ra.append(reward)  # Store the reward sample\n\n            # Update Q(a) using the existing formula\n            if node.Ra:\n                min_ra = min(node.Ra)\n                avg_ra = node.value / node.visits\n                node.Q = 0.5 * (min_ra + avg_ra)\n            \n            # If the node has a parent, update the parent's Q(a) based on the formula\n            if node.parent is not None:\n                parent = node.parent\n                # Compute the maximum Q among the parent's children\n                if parent.children:\n                    max_child_Q = max(child.Q for child in parent.children if child.Q is not None)\n                    # Update the parent's Q(a)\n                    parent.Q = 0.5 * (parent.Q + max_child_Q)\n            node = node.parent\n\n    def _best_child(self, node, exploration_param=1.41):\n        return node.select_promising_child(exploration_param)\n\nExplanation: - perform_search: Runs the MCTS for a specified number of iterations and returns the best answer found. - _tree_policy: Decides whether to expand a node or move to the best child. - _expand: Generates critiques and refines the answer to create child nodes. - _default_policy: Evaluates the node’s answer to simulate the reward. - _backpropagate: Updates the visit count and value of the nodes up the tree.\n\n\nRunning the MCTS\nFinally, we initialize the MCTS with a question and perform the search to find the best answer.\n\nmcts = MonteCarloTreeSearch(question, seed_answers, iterations=10)\nbest_answer = mcts.perform_search()\n\nExplanation: We create an instance of MonteCarloTreeSearch with the question and seed answers. We specify the number of iterations (rollouts) for the search.\n\n\nApplying MCTSr to a Mathematical Problem\nSuppose we have the following mathematical question: Question: “Calculate the sum of the interior angles of a 12-sided polygon.” We can use the MCTSr implementation to find an accurate answer.\n\nquestion = \"Calculate the sum of the interior angles of a 12-sided polygon.\"\nmcts = MonteCarloTreeSearch(question, seed_answers, iterations=10)\nbest_answer = mcts.perform_search()\nprint(f\"\\nBest Answer:\\n{best_answer}\")\n\n\n\nOutput:\n(Snippet showing only the final anwer)\n…\nBest Answer: Refined Answer: Calculating the sum of interior angles of a 12-sided polygon\nStep-by-step calculation:\nA 12-sided polygon is called a dodecagon. Using the formula for the sum of interior angles of a polygon, we can calculate the sum:\nSum of interior angles = (n-2) × 180\nWhere n is the number of sides.\nIn this case, n = 12, so: Sum of interior angles = (12 - 2) × 180 = 10 × 180 = 1800\nReasoning and Verification:\nThe formula for the sum of interior angles of a polygon is derived from the fact that each interior angle is supplementary to its adjacent exterior angle. By applying this formula to a dodecagon, we can calculate the sum of its interior angles.\nTo verify the answer, we can also use a different approach. The sum of interior angles of a polygon is also equal to (n-2) × 180, where n is the number of sides. Since we have already shown that n = 12, we can substitute this value into the formula:\nSum of interior angles = (12 - 2) × 180 = 10 × 180 = 1800\nFinal Answer: The sum of the interior angles of a 12-sided polygon is 1800 degrees.\nThis refined answer demonstrates a clear understanding of the problem and provides a step-by-step calculation using relevant mathematical concepts. It also includes a verification step to ensure the answer is accurate.\n…\nExplanation: The MCTS starts with a seed answer and iteratively refines it. After ten iterations, it arrives at a correct and well-explained solution.",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "⚡ **Prompting**",
+      "Monte Carlo Tree Self-Refine"
+    ]
+  },
+  {
+    "objectID": "posts/monte_carlo_self_refine.html#advantages-of-the-implementation",
+    "href": "posts/monte_carlo_self_refine.html#advantages-of-the-implementation",
+    "title": "Monte Carlo Tree Self-Refine",
+    "section": "Advantages of the Implementation",
+    "text": "Advantages of the Implementation\n\nIterative Improvement: The algorithm systematically improves the answer through self-critique and refinement.\nBalanced Exploration: Using UCT, the search balances exploring new refinements and exploiting known good answers.\nAutomatic Evaluation: The self-evaluation step allows the model to assess the quality of answers without external input.\n\n\nLimitations\n\nComputational Resources: Each iteration involves multiple calls to the LLM, which can be time-consuming and resource-intensive.\nModel Dependence: The quality of the final answer heavily relies on the LLM’s capability to critique and refine effectively.\nParameter Tuning: Parameters like MAX_CHILDREN and the exploration constant need to be tuned for optimal performance.",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "⚡ **Prompting**",
+      "Monte Carlo Tree Self-Refine"
+    ]
+  },
+  {
+    "objectID": "posts/monte_carlo_self_refine.html#conclusion",
+    "href": "posts/monte_carlo_self_refine.html#conclusion",
+    "title": "Monte Carlo Tree Self-Refine",
+    "section": "Conclusion",
+    "text": "Conclusion\nThe Monte Carlo Tree Self-Refine technique represents a significant step forward in enhancing LLMs’ ability to tackle complex reasoning tasks. By integrating MCTS with self-refinement strategies, MCTSr offers a robust framework for improving decision-making and solution quality in AI applications. The practical implementation demonstrates how theoretical concepts can be applied to achieve tangible improvements in mathematical problem-solving.\nAs research continues, we can expect further refinements and broader applications of this innovative approach, potentially extending beyond mathematics to other domains requiring complex reasoning and decision-making.\nNote: The code examples provided use placeholder functions like chat_completion_request, which should be implemented using the appropriate API calls to the language model you’re interfacing with. The full code used in this article is available on Google Colab and in the LLM Tutorial.",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "⚡ **Prompting**",
+      "Monte Carlo Tree Self-Refine"
+    ]
+  },
+  {
+    "objectID": "posts/monte_carlo_self_refine.html#references",
+    "href": "posts/monte_carlo_self_refine.html#references",
+    "title": "Monte Carlo Tree Self-Refine",
+    "section": "References",
+    "text": "References\nZhang, D., Huang, X., Zhou, D., Li, Y., & Ouyang, W. (2024). Accessing GPT-4 level Mathematical Olympiad Solutions via Monte Carlo Tree Self-refine with LLaMa-3 8B. arXiv (Cornell University). https://doi.org/10.48550/arxiv.2406.07394",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "⚡ **Prompting**",
+      "Monte Carlo Tree Self-Refine"
+    ]
+  },
+  {
+    "objectID": "posts/monte_carlo_self_refine.html#conclusion-1",
+    "href": "posts/monte_carlo_self_refine.html#conclusion-1",
+    "title": "Monte Carlo Tree Self-Refine",
+    "section": "Conclusion",
+    "text": "Conclusion\nThe MCT Self-Refine (MCTSr) algorithm represents a significant advancement in AI-driven problem-solving. By integrating Monte Carlo Tree Search (MCTS) with large language models (LLMs), MCTSr addresses critical challenges in accuracy and reliability, particularly within reasoning tasks.",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "⚡ **Prompting**",
+      "Monte Carlo Tree Self-Refine"
+    ]
+  },
+  {
+    "objectID": "posts/monte_carlo_self_refine.html#conclusion-2",
+    "href": "posts/monte_carlo_self_refine.html#conclusion-2",
+    "title": "Monte Carlo Tree Self-Refine",
+    "section": "Conclusion",
+    "text": "Conclusion\nIn this article we discussed the the Monte Carlo Search Refine and we implemented it.",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "⚡ **Prompting**",
+      "Monte Carlo Tree Self-Refine"
+    ]
+  },
+  {
+    "objectID": "posts/monte_carlo_self_refine.html#references-1",
+    "href": "posts/monte_carlo_self_refine.html#references-1",
+    "title": "Monte Carlo Tree Self-Refine",
+    "section": "References",
+    "text": "References",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "⚡ **Prompting**",
+      "Monte Carlo Tree Self-Refine"
     ]
   }
 ]
