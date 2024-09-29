@@ -45,7 +45,7 @@ website:
         - section: "🗣️ **LLM Pre-Training**"
         - text: "---"
         
-        - section: "⚡ **Prompting**"
+        - section: "⚡ **Inference**"
           contents:
             - text: "Monte Carlo Tree Self-Refine"
               href: posts/monte_carlo_self_refine.html
