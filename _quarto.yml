@@ -40,6 +40,8 @@ website:
               href: posts/From_Fine-Tuning_to_Deployment.html
             - text: "Fine-Tune Mistral with ORPO"
               href: posts/Fine-Tune_Mistral_7B_with_ORPO.html
+            - text: "Build a High-Quality DPO Dataset"
+              href: posts/Build_DPO_Dataset.html
               
         - text: "---"
         - section: "🗣️ **LLM Pre-Training**"

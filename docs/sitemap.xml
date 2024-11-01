@@ -18,7 +18,7 @@
   </url>
   <url>
     <loc>https://mattdepaolis.github.io/blog/posts/Fine-Tune_Mistral_7B_with_ORPO.html</loc>
-    <lastmod>2024-08-22T12:33:00.122Z</lastmod>
+    <lastmod>2024-11-01T11:28:52.214Z</lastmod>
   </url>
   <url>
     <loc>https://mattdepaolis.github.io/blog/posts/From_Fine-Tuning_to_Deployment.html</loc>
@@ -30,6 +30,10 @@
   </url>
   <url>
     <loc>https://mattdepaolis.github.io/blog/posts/monte_carlo_self_refine.html</loc>
-    <lastmod>2024-09-29T12:25:11.157Z</lastmod>
+    <lastmod>2024-09-29T13:46:34.083Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mattdepaolis.github.io/blog/posts/Build_DPO_Dataset.html</loc>
+    <lastmod>2024-11-01T12:57:46.228Z</lastmod>
   </url>
 </urlset>
