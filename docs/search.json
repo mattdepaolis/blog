@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": " Articles",
     "section": "",
-    "text": "LLM Evaluation Framework\n\n\nReplicate Huggingface Open LLM Leaderboard Locally\n\n\n\nLLM Evaluation\n\n\n\n\n\n\nMay 1, 2025\n\n\n3 min\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nBuild a High-Quality DPO Dataset\n\n\nBuilding a High-Quality DPO Dataset by Aggregating Best Answers\n\n\n\nPost-Training LLM\n\n\n\n\n\n\nNov 1, 2024\n\n\n7 min\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMonte Carlo Tree Self-Refine\n\n\nUnlocking Advanced Mathematical Reasoning with Monte Carlo Tree Self-Refine\n\n\n\nInference\n\n\n\n\n\n\nSep 30, 2024\n\n\n12 min\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFrom Fine-Tuning to Deployment\n\n\nHarnessing Custom LLMs with Ollama and Quantization\n\n\n\nPost-Training LLM\n\n\n\n\n\n\nAug 31, 2024\n\n\n11 min\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFine-Tune Mistral v0.3 with ORPO and Unsloth\n\n\nLow-Rank Adapter Model Fine-tuning\n\n\n\nPost-Training LLM\n\n\n\n\n\n\nJul 30, 2024\n\n\n11 min\n\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "LLM Evaluation Framework\n\n\nReplicate Huggingface Open LLM Leaderboard Locally\n\n\n\nLLM Evaluation\n\n\n\n\n\n\nMay 1, 2025\n\n\n4 min\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nBuild a High-Quality DPO Dataset\n\n\nBuilding a High-Quality DPO Dataset by Aggregating Best Answers\n\n\n\nPost-Training LLM\n\n\n\n\n\n\nNov 1, 2024\n\n\n7 min\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMonte Carlo Tree Self-Refine\n\n\nUnlocking Advanced Mathematical Reasoning with Monte Carlo Tree Self-Refine\n\n\n\nInference\n\n\n\n\n\n\nSep 30, 2024\n\n\n12 min\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFrom Fine-Tuning to Deployment\n\n\nHarnessing Custom LLMs with Ollama and Quantization\n\n\n\nPost-Training LLM\n\n\n\n\n\n\nAug 31, 2024\n\n\n11 min\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFine-Tune Mistral v0.3 with ORPO and Unsloth\n\n\nLow-Rank Adapter Model Fine-tuning\n\n\n\nPost-Training LLM\n\n\n\n\n\n\nJul 30, 2024\n\n\n11 min\n\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -901,6 +901,102 @@
       "{{< fa chalkboard >}} LLM Tutorials",
       "🗣️ **LLM Post-Training**",
       "Build a High-Quality DPO Dataset"
+    ]
+  },
+  {
+    "objectID": "posts/LLM_Evaluation_Framework.html",
+    "href": "posts/LLM_Evaluation_Framework.html",
+    "title": "LLM Evaluation Framework",
+    "section": "",
+    "text": "The discontinuation of Hugging Face’s Open LLM Leaderboard has left a gap in the community for standardized evaluation of large language models (LLMs). To address this, I developed the LLM Evaluation Framework, a comprehensive and modular tool designed to facilitate reproducible and extensible benchmarking of LLMs across various tasks and benchmarks.\nThe LLM Evalaution Framework can be found on my Github account: LLM Evaluation Framework",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "⚡ **LLM Evaluation**",
+      "LLM Evaluation Framework"
+    ]
+  },
+  {
+    "objectID": "posts/LLM_Evaluation_Framework.html#why-this-framework-matters",
+    "href": "posts/LLM_Evaluation_Framework.html#why-this-framework-matters",
+    "title": "LLM Evaluation Framework",
+    "section": "🧩 Why This Framework Matters",
+    "text": "🧩 Why This Framework Matters\nThe Open LLM Leaderboard was instrumental in providing a centralized platform for evaluating and comparing LLMs. Its retirement has underscored the need for tools that allow researchers and developers to conduct their own evaluations with transparency and consistency. The LLM Evaluation Framework aims to fill this void by offering: - Modular Design: Inspired by microservice architecture, enabling easy integration and customization. - Multiple Model Backends: Support for Hugging Face (hf) and vLLM backends, allowing flexibility in model loading and inference. - Quantization Support: Evaluate quantized models (e.g., 4-bit, 8-bit with hf, AWQ with vLLM) to assess performance under resource constraints. - Comprehensive Benchmarks: Includes support for standard benchmarks like MMLU, GSM8K, BBH, and more. - Leaderboard Replication: Easily run evaluations mimicking the Open LLM Leaderboard setup with standardized few-shot settings. - Flexible Configuration: Customize evaluations via CLI arguments or programmatic usage. - Detailed Reporting: Generates JSON results and Markdown reports for easy analysis. - Parallelism: Leverages vLLM for efficient inference, including tensor parallelism across multiple GPUs.",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "⚡ **LLM Evaluation**",
+      "LLM Evaluation Framework"
+    ]
+  },
+  {
+    "objectID": "posts/LLM_Evaluation_Framework.html#getting-started",
+    "href": "posts/LLM_Evaluation_Framework.html#getting-started",
+    "title": "LLM Evaluation Framework",
+    "section": "🚀 Getting Started",
+    "text": "🚀 Getting Started\nInstallation 1. Clone the Repository:\n\n!git clone https://github.com/mattdepaolis/llm-evaluation.git\n!cd llm-evaluation\n\n\nSet Up a Virtual Environment:\n\n\n!python -m venv .venv\n!source .venv/bin/activate  # On Windows use `.venv\\Scripts\\activate`\n\n\nInstall Dependencies:\n\n\n!pip install -e lm-evaluation-harness\n!pip install torch numpy tqdm transformers accelerate bitsandbytes sentencepiece\n!pip install vllm  # If you plan to use the vLLM backend",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "⚡ **LLM Evaluation**",
+      "LLM Evaluation Framework"
+    ]
+  },
+  {
+    "objectID": "posts/LLM_Evaluation_Framework.html#example-usage",
+    "href": "posts/LLM_Evaluation_Framework.html#example-usage",
+    "title": "LLM Evaluation Framework",
+    "section": "🧪 Example Usage",
+    "text": "🧪 Example Usage\nUsing the Command-Line Interface (CLI)\nEvaluate a model on the HellaSwag benchmark:\n\n!python llm_eval_cli.py \\\n  --model hf \\\n  --model_name google/gemma-2b \\\n  --tasks hellaswag \\\n  --num_fewshot 0 \\\n  --device cuda  # Use 'cpu' if you don't have a GPU\n\nThis command will download the gemma-2b model (if not cached), run it on the HellaSwag benchmark with 0 few-shot examples, and save the results in the results/ and reports/ directories.\nUsing as a Python Library\nIntegrate the evaluation logic directly into your Python scripts:\n\nfrom llm_eval import evaluate_model\nimport os\n\n# Define evaluation parameters\neval_config = {\n    \"model_type\": \"hf\",\n    \"model_name\": \"google/gemma-2b-it\",\n    \"tasks\": [\"mmlu\", \"gsm8k\"],\n    \"num_fewshot\": 0,\n    \"device\": \"cuda\",\n    \"quantize\": True,\n    \"quantization_method\": \"4bit\",\n    \"batch_size\": \"auto\",\n    \"output_dir\": \"./custom_results\"  # Optional: Specify output location\n}\n\n# Run the evaluation\ntry:\n    results_summary, results_file_path = evaluate_model(**eval_config)\n\n    print(\"Evaluation completed successfully!\")\n    print(f\"Results summary: {results_summary}\")\n    print(f\"Detailed JSON results saved to: {results_file_path}\")\n\n    # Construct the expected report path\n    base_name = os.path.splitext(os.path.basename(results_file_path))[0]\n    report_file_path = os.path.join(os.path.dirname(results_file_path).replace('results', 'reports'), f\"{base_name}_report.md\")\n\n    if os.path.exists(report_file_path):\n        print(f\"Markdown report saved to: {report_file_path}\")\n    else:\n        print(\"Markdown report not found at expected location.\")\n\nexcept Exception as e:\n    print(f\"An error occurred during evaluation: {e}\")",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "⚡ **LLM Evaluation**",
+      "LLM Evaluation Framework"
+    ]
+  },
+  {
+    "objectID": "posts/LLM_Evaluation_Framework.html#reporting-and-results",
+    "href": "posts/LLM_Evaluation_Framework.html#reporting-and-results",
+    "title": "LLM Evaluation Framework",
+    "section": "📊 Reporting and Results",
+    "text": "📊 Reporting and Results\nThe framework generates: - JSON Results: Detailed results for each task, including individual sample predictions (if applicable), metrics, and configuration details, saved in the results/ directory. - Markdown Reports: A summary report aggregating scores across tasks, generated in the reports/ directory.",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "⚡ **LLM Evaluation**",
+      "LLM Evaluation Framework"
+    ]
+  },
+  {
+    "objectID": "posts/LLM_Evaluation_Framework.html#extending-the-framework",
+    "href": "posts/LLM_Evaluation_Framework.html#extending-the-framework",
+    "title": "LLM Evaluation Framework",
+    "section": "🔧 Extending the Framework",
+    "text": "🔧 Extending the Framework\nThe modular design makes it easier to add new functionalities:\n\nAdding New Tasks/Benchmarks:\n\n\nDefine the task configuration in llm_eval/tasks/task_registry.py or a similar configuration file.\nEnsure the task is compatible with the lm-evaluation-harness structure or adapt it.\n\n\nSupporting New Model Backends:\n\n\nCreate a new model handler class in llm_eval/models/ inheriting from a base model class (if applicable).\nImplement the required methods for loading, inference, etc.\nRegister the new backend type. ￼\n\n\nCustomizing Reporting:\n\n\nModify the report generation logic in llm_eval/reporting/ to change the format or content of the Markdown/JSON outputs.",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "⚡ **LLM Evaluation**",
+      "LLM Evaluation Framework"
+    ]
+  },
+  {
+    "objectID": "posts/LLM_Evaluation_Framework.html#contributing",
+    "href": "posts/LLM_Evaluation_Framework.html#contributing",
+    "title": "LLM Evaluation Framework",
+    "section": "🤝 Contributing",
+    "text": "🤝 Contributing\nContributions are welcome! Please follow standard practices:\n\nFork the repository.\nCreate a new branch for your feature or bug fix (git checkout -b feature/my-new-feature).\nMake your changes and commit them (git commit -am ‘Add some feature’).\nPush to the branch (git push origin feature/my-new-feature).\nCreate a new Pull Request.",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "⚡ **LLM Evaluation**",
+      "LLM Evaluation Framework"
+    ]
+  },
+  {
+    "objectID": "posts/LLM_Evaluation_Framework.html#how-the-evaluation-report-looks",
+    "href": "posts/LLM_Evaluation_Framework.html#how-the-evaluation-report-looks",
+    "title": "LLM Evaluation Framework",
+    "section": "📄 How the Evaluation Report Looks",
+    "text": "📄 How the Evaluation Report Looks\nWhen you run an evaluation using the LLM Evaluation Framework, it generates comprehensive yet easy-to-understand reports in both Markdown and JSON formats. Here’s a broad overview of what you can expect from the Markdown report:\n\n1. 📊 Summary of Metrics\nThis section provides a clear table summarizing the evaluation results for each individual task. Each row includes: • Task: The specific benchmark or task evaluated (e.g., leaderboard_bbh_boolean_expressions). • Metric: The evaluation metric used (e.g., accuracy, exact match). • Value: The model’s performance score on that task.\n\n\n2. 📈 Normalized Scores\nThis section provides normalized scores, giving you an easy-to-interpret percentage representation of the model’s performance relative to the benchmark standards. It includes: • Benchmark: The benchmark’s name. • Score: The normalized percentage score.\nThis helps quickly identify the relative strengths and weaknesses of the evaluated model.\n\n\n3. 🔍 Task Samples (Detailed Examples)\nThe report also offers detailed, human-readable examples from evaluated tasks, allowing you to qualitatively assess the model’s outputs: • Question: Clearly presents the evaluation sample question. • Ground Truth: The correct answer or expected response. • Model Response: The exact response provided by your evaluated model, clearly labeled as correct or incorrect.\nThis section is especially valuable for error analysis and understanding how your model handles specific types of queries.\n\n\n⚙️ Customization\nThese reports can be customized or extended further by modifying the reporting logic, enabling deeper analyses or alternative formats as needed.",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "⚡ **LLM Evaluation**",
+      "LLM Evaluation Framework"
     ]
   }
 ]
