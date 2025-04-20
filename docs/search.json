@@ -1010,5 +1010,17 @@
       "⚡ **LLM Evaluation**",
       "LLM Evaluation Framework"
     ]
+  },
+  {
+    "objectID": "posts/LLM_Evaluation_Framework.html#empowering-transparent-and-reproducible-llm-evaluations",
+    "href": "posts/LLM_Evaluation_Framework.html#empowering-transparent-and-reproducible-llm-evaluations",
+    "title": "LLM Evaluation Framework",
+    "section": "🧩 Empowering Transparent and Reproducible LLM Evaluations",
+    "text": "🧩 Empowering Transparent and Reproducible LLM Evaluations\nThe Open LLM Leaderboard was instrumental in providing a centralized platform for evaluating and comparing LLMs. Its retirement has underscored the need for tools that allow researchers and developers to conduct their own evaluations with transparency and consistency. The LLM Evaluation Framework aims to fill this void by offering:\n\nModular Design: Inspired by microservice architecture, enabling easy integration and customization.\nMultiple Model Backends: Support for Hugging Face (hf) and vLLM backends, allowing flexibility in model loading and inference.\nQuantization Support: Evaluate quantized models (e.g., 4-bit, 8-bit with hf, AWQ with vLLM) to assess performance under resource constraints.\nComprehensive Benchmarks: Includes support for standard benchmarks like MMLU, GSM8K, BBH, and more.\nLeaderboard Replication: Easily run evaluations mimicking the Open LLM Leaderboard setup with standardized few-shot settings.\nFlexible Configuration: Customize evaluations via CLI arguments or programmatic usage.\nDetailed Reporting: Generates JSON results and Markdown reports for easy analysis.\nParallelism: Leverages vLLM for efficient inference, including tensor parallelism across multiple GPUs.",
+    "crumbs": [
+      "{{< fa chalkboard >}} LLM Tutorials",
+      "⚡ **LLM Evaluation**",
+      "LLM Evaluation Framework"
+    ]
   }
 ]
