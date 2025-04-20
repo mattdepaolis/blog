@@ -956,7 +956,7 @@
     "href": "posts/LLM_Evaluation_Framework.html#reporting-and-results",
     "title": "LLM Evaluation Framework",
     "section": "📊 Reporting and Results",
-    "text": "📊 Reporting and Results\nThe framework generates: - JSON Results: Detailed results for each task, including individual sample predictions (if applicable), metrics, and configuration details, saved in the results/ directory.\n\nMarkdown Reports: A summary report aggregating scores across tasks, generated in the reports/ directory.",
+    "text": "📊 Reporting and Results\nThe framework generates:\n\nJSON Results: Detailed results for each task, including individual sample predictions (if applicable), metrics, and configuration details, saved in the results/ directory.\nMarkdown Reports: A summary report aggregating scores across tasks, generated in the reports/ directory.",
     "crumbs": [
       "{{< fa chalkboard >}} LLM Tutorials",
       "⚡ **LLM Evaluation**",
