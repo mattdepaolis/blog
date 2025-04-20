@@ -53,12 +53,15 @@ website:
               href: posts/monte_carlo_self_refine.html
         
         - text: "---"
-        - section: "⚡ **RAG Systems**"
+        - section: "⚡ **LLM Evaluation**"
+          contents:
+            - text: "LLM Evaluation Framework"
+              href: posts/LLM_Evaluation_Framework.html
+
         - text: "---"
         
         - section: "⚡ **Agents**"
         - text: "---"
-
         
 format:
   html:
